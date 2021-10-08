@@ -1,5 +1,3 @@
-#comentário de teste
-
 from sqlite3.dbapi2 import connect
 from PyQt5 import  uic,QtWidgets,QtGui, QtCore
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
