@@ -1,6 +1,6 @@
 from sqlite3.dbapi2 import connect
 from PyQt5 import  uic,QtWidgets,QtGui, QtCore
-from PyQt5.QtCore import QObject, QThread, pyqtSignal
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, QTimer, QTime, Qt
 from PyQt5.QtGui import QGuiApplication
 import sqlite3
 import hashlib
@@ -21,13 +21,12 @@ import time
 
 ##------ Funções
 def relogio():
-    while(True):
-        hora_atual = pegaHorario.curlHoraStr()
-        pontoT.txtTime.setText(hora_atual)
+    #while(True):
+        pontoT.txtTime.setText(pegaHorario.curlHoraStr())
         time.sleep(1)
 
-def atualizaHora(n):
-    pontoT.txtTime.setText(n)
+#def atualizaHora(n):
+#    pontoT.txtTime.setText(n)
 
 def messageBox(err):
     msgBoxT.loginButton.setText(err)
@@ -59,19 +58,25 @@ def login():
     senha = loginT.user_pass.text()
     banco = sqlite3.connect('banco_cadastroGP.db') 
     cursor = banco.cursor()
-    try:
+    try:     
         cursor.execute("SELECT senha FROM cadastroGP WHERE matricula ='{}'".format(matricula))
         senha_bd = cursor.fetchall()
+        cursor.execute("SELECT admin FROM cadastroGP WHERE matricula = '{}'".format(matricula))
+        admVR = cursor.fetchall()
         banco.close()
         if hashlib.sha256(senha.encode('utf-8')).hexdigest() == senha_bd[0][0]:
-            loginT.close()
-            menuT.show()
-            pontoT.pontoButton_2.clicked.connect(lambda: marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula
+            if admVR[0][0] == 1:
+                loginT.close()
+                admT.show() 
+                pontoT.pontoButton_2.clicked.connect(lambda: marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula | ADM View          
+            else: 
+                loginT.close()
+                menuT.show()
+                pontoT.pontoButton_2.clicked.connect(lambda: marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula | USER View
         else:
             loginT.error_txt.setText("Dados de login incorretos!")
     except:
         loginT.error_txt.setText("Erro ao validar o Login")
-
 
 def chama_cad():
     cadT.show()
@@ -138,6 +143,7 @@ loginT.user_pass.setEchoMode(QtWidgets.QLineEdit.Password)                     #
 cadT.cadFunc.clicked.connect(cadastrar)                                        # Chama Funcao para cadastrar Colaborador;
 
 menuT.pontoButton.clicked.connect(telaPonto)                                   # Chama tela de Ponto;
+admT.pontoButton.clicked.connect(telaPonto)                                    # Chama tela de Ponto;
 
 matricula = ''
 
