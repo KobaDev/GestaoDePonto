@@ -172,12 +172,17 @@ padding-bottom: 7px;
      <x>0</x>
      <y>0</y>
      <width>666</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>res_newpass</tabstop>
+  <tabstop>res_newpass2</tabstop>
+  <tabstop>resetAltera</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

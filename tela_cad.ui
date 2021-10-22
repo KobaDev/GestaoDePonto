@@ -323,6 +323,15 @@ border-top-left-radius: 50px;</string>
    <zorder>sahde_img</zorder>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>cad_username</tabstop>
+  <tabstop>cad_func_user</tabstop>
+  <tabstop>cad_mat_user</tabstop>
+  <tabstop>cad_pass1_log</tabstop>
+  <tabstop>cad_pass2_log</tabstop>
+  <tabstop>cadFunc</tabstop>
+  <tabstop>cadReset</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -289,8 +289,8 @@ QPushButtom#cadRequest:pressed{
     <widget class="QLabel" name="txt_acesso">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>440</y>
+       <x>420</x>
+       <y>430</y>
        <width>171</width>
        <height>41</height>
       </rect>
@@ -302,6 +302,9 @@ QPushButtom#cadRequest:pressed{
      </property>
      <property name="text">
       <string>Não possuí acesso?</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="LogIn">
@@ -361,6 +364,13 @@ QPushButtom#cadRequest:pressed{
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>user_mat_log</tabstop>
+  <tabstop>user_pass</tabstop>
+  <tabstop>loginButton</tabstop>
+  <tabstop>cadRequest</tabstop>
+  <tabstop>resetButton</tabstop>
+ </tabstops>
  <resources>
   <include location="res.qrc"/>
  </resources>
