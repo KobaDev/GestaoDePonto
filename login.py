@@ -101,8 +101,7 @@ class Win():
     def reset_confirm():
         Win.reset_confirmT.show()
 
-    def recupera_senha():
-        matricula = Win.reset_confirmT.user_mat_log.text()
+    def recupera_senha(matricula):
         banco = sqlite3.connect('banco_cadastroGP.db') 
         cursor = banco.cursor()
         cursor.execute("SELECT matricula FROM cadastroGP WHERE matricula = '{}'".format(matricula))
@@ -125,8 +124,8 @@ class Win():
     #    reset_alteraT.show()
 
     def altera_cadastro(matricula):
+        matricula = Win.reset_confirmT.user_mat_log.text()
         Win.reset_alteraT.show()
-        Win.messageBox(str(matricula))
         senha = hashlib.sha256(Win.reset_alteraT.res_newpass.text().encode('utf-8')).hexdigest()
         c_senha = hashlib.sha256(Win.reset_alteraT.res_newpass2.text().encode('utf-8')).hexdigest()
 
@@ -135,11 +134,10 @@ class Win():
             try:
                 banco = sqlite3.connect('banco_cadastroGP.db') 
                 cursor = banco.cursor()
-                cursor.execute("UPDATE cadastroGP SET senha WHERE matricula ='{}'".format(matricula))
+                cursor.execute("UPDATE cadastroGP SET senha = '"+senha+"' WHERE matricula = '{}'".format(matricula))
                 banco.commit() 
                 banco.close()
-                Win.reset_alteraT.status_txt.setText("Usuario cadastrado com sucesso")
-                print("Deu certo, passou aqui")
+                Win.messageBox("Usuario atualizado com sucesso")
 
             except sqlite3.Error as erro:
                 Win.messageBox("Erro ao inserir os dados: "+str(erro))
@@ -148,7 +146,7 @@ class Win():
             Win.loginT.show()
 
         else:
-            Win.cadT.status_txt.setText("As senhas digitadas estão diferentes")
+            Win.messageBox("As senhas digitadas estão diferentes")
 
     def chama_cad():
         Win.cadT.show()
@@ -195,7 +193,7 @@ class Win():
     loginT.user_pass.setEchoMode(QtWidgets.QLineEdit.Password)                     # ;
     loginT.resetButton.clicked.connect(reset_confirm)                              # Chama confirmação de matrícula p/ Reset;
 
-    reset_confirmT.resetConfirm.clicked.connect(recupera_senha)
+    reset_confirmT.resetConfirm.clicked.connect(lambda: Win.recupera_senha(Win.reset_confirmT.user_mat_log.text()))
     reset_alteraT.resetAltera.clicked.connect(altera_cadastro)
 
     cadT.cadFunc.clicked.connect(cadastrar)                                        # Chama Funcao para cadastrar Colaborador;

@@ -144,27 +144,6 @@ padding-bottom: 7px;
      <pixmap>Tela_login/password.png</pixmap>
     </property>
    </widget>
-   <widget class="QLabel" name="status_txt">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>410</y>
-      <width>311</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
