@@ -41,8 +41,3 @@ def curlHoraInt():
 
 def curlFuso():
     return datetime.datetime.fromtimestamp( curlHoraInt() + verificarUTC_num(geoloc.region()) ).strftime('%Y-%m-%d %H:%M:%S') #Para testar outro estado, trocar "geoloc.region()" por "AC" ou outro estado de fuso horário diferente
-
-#---- Teste
-#while(True):
-#    print(curlFuso())
-#    time.sleep(1)

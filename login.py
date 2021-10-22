@@ -8,15 +8,6 @@ import geoloc
 import threading
 import time
 
-
-#class clock(QtCore.QObject):
-#
-#    def run(self):
-#        while(True):
-#            hora_atual = pegaHorario.curlHoraStr()
-#            pontoT.txtTime.setText(hora_atual)
-#            time.sleep(1)
-
 class Worker(QObject):
     updateDate = pyqtSignal()
     trigger = pyqtSignal()
