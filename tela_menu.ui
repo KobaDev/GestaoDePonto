@@ -233,6 +233,12 @@ background-color: rgb(255, 255, 255);</string>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
               <widget class="QPushButton" name="meus_dados1_btn">
+               <property name="minimumSize">
+                <size>
+                 <width>158</width>
+                 <height>50</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <family>Lucida Console</family>
@@ -240,6 +246,9 @@ background-color: rgb(255, 255, 255);</string>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
                 <string notr="true">color: rgb(255, 255, 255);</string>
@@ -266,6 +275,12 @@ background-color: rgb(255, 255, 255);</string>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
               <widget class="QPushButton" name="marcaponto_btn1">
+               <property name="minimumSize">
+                <size>
+                 <width>158</width>
+                 <height>50</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <family>Lucida Console</family>
@@ -273,6 +288,9 @@ background-color: rgb(255, 255, 255);</string>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
                 <string notr="true">color: rgb(255, 255, 255);</string>
@@ -290,6 +308,12 @@ background-color: rgb(255, 255, 255);</string>
           </item>
           <item>
            <widget class="QFrame" name="frame_13">
+            <property name="minimumSize">
+             <size>
+              <width>158</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -299,6 +323,12 @@ background-color: rgb(255, 255, 255);</string>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
               <widget class="QPushButton" name="relatorio_btn1">
+               <property name="minimumSize">
+                <size>
+                 <width>158</width>
+                 <height>50</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <family>Lucida Console</family>
@@ -306,6 +336,9 @@ background-color: rgb(255, 255, 255);</string>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
                 <string notr="true">color: rgb(255, 255, 255);</string>
@@ -332,6 +365,9 @@ background-color: rgb(255, 255, 255);</string>
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <widget class="QPushButton" name="sair_btn">
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="styleSheet">
                 <string notr="true">color: rgb(255, 255, 255);</string>
                </property>
@@ -368,7 +404,7 @@ background-color: rgb(255, 255, 255);</string>
        <string notr="true">background-color: rgb(222, 222, 222);</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main_pg">
        <property name="sizePolicy">
@@ -878,12 +914,15 @@ border-style: outset;
                   </widget>
                  </item>
                  <item row="3" column="1">
-                  <widget class="QLabel" name="label_17">
+                  <widget class="QLabel" name="lbl_email">
+                   <property name="cursor">
+                    <cursorShape>IBeamCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string>TextLabel</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -901,12 +940,15 @@ border-style: outset;
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QLabel" name="label_15">
+                  <widget class="QLabel" name="lbl_matricula">
+                   <property name="cursor">
+                    <cursorShape>IBeamCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string>TextLabel</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -924,17 +966,23 @@ border-style: outset;
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QLabel" name="label_18">
+                  <widget class="QLabel" name="lbl_cargo">
+                   <property name="cursor">
+                    <cursorShape>IBeamCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string>TextLabel</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLabel" name="label_16">
+                  <widget class="QLabel" name="lbl_nome">
+                   <property name="cursor">
+                    <cursorShape>IBeamCursor</cursorShape>
+                   </property>
                    <property name="layoutDirection">
                     <enum>Qt::RightToLeft</enum>
                    </property>
@@ -942,7 +990,7 @@ border-style: outset;
                     <string>TextLabel</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -1253,77 +1301,34 @@ border-style: outset;
                   <number>0</number>
                  </property>
                  <item>
-                  <widget class="QFrame" name="frame_39">
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
+                  <widget class="QLineEdit" name="lineEdit">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>35</height>
+                    </size>
                    </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
+                   <property name="font">
+                    <font>
+                     <family>Lucida Console</family>
+                     <pointsize>12</pointsize>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_22">
-                    <item>
-                     <widget class="QLineEdit" name="primeiro_nome_edt">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>35</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Lucida Console</family>
-                        <pointsize>12</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(244, 247, 248);
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(244, 247, 248);
 border-radius: 10px;
 border-style: outset;
 border-width: 2px;
 border-color: rgb(120, 120, 120);</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                      <property name="placeholderText">
-                       <string>Primeiro Nome</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="segundo_nome_edt">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>35</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Lucida Console</family>
-                        <pointsize>12</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">background-color: rgb(244, 247, 248);
-border-radius: 10px;
-border-style: outset;
-border-width: 2px;
-border-color: rgb(120, 120, 120);</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                      <property name="placeholderText">
-                       <string>Segundo Nome</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Nome completo</string>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -1358,6 +1363,8 @@ border-color: rgb(120, 120, 120);</string>
                   </widget>
                  </item>
                 </layout>
+                <zorder>lineEdit_2</zorder>
+                <zorder>lineEdit</zorder>
                </widget>
               </item>
               <item>
@@ -2607,7 +2614,7 @@ border-color: rgb(16, 49, 100)</string>
                      <number>0</number>
                     </property>
                     <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                     <widget class="QPushButton" name="marcaponto_btn">
+                     <widget class="QPushButton" name="pushButton_14">
                       <property name="minimumSize">
                        <size>
                         <width>180</width>
@@ -3361,7 +3368,7 @@ border-color: rgb(120, 120, 120);</string>
                      <number>0</number>
                     </property>
                     <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-                     <widget class="QPushButton" name="gera_fr_btn">
+                     <widget class="QPushButton" name="pushButton_15">
                       <property name="minimumSize">
                        <size>
                         <width>180</width>
@@ -3428,6 +3435,7 @@ border-color: rgb(120, 120, 120);</string>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="Em_edicao"/>
      </widget>
     </item>
    </layout>

@@ -72,11 +72,12 @@ class Win():
     tela_cadastro = uic.loadUi("tela_cadastro.ui")
     tela_login = uic.loadUi("tela_login.ui")
     tela_menu = uic.loadUi("tela_menu.ui")
-    #    tela_menu_adm = uic.loadUi("tela_adm.ui")  - Tela ainda não foi desenhada;
+    tela_messageBox = uic.loadUi("tela_messageBox.ui")
+    #tela_menu_adm = uic.loadUi("tela_adm.ui")  - Tela ainda não foi desenhada;
     tela_resete_confirma = uic.loadUi("tela_reset_confirm.ui")
     tela_resete_altera = uic.loadUi("tela_reset_altera.ui")
-    #    tela_ponto = uic.loadUi("tela_ponto.ui")   - Comentado, pois precisará recodar;
-    #    msgBoxT = uic.loadUi("tela_messageBox.ui") - Comentado, pois precisará recodar;
+    #tela_ponto = uic.loadUi("tela_ponto.ui")   - Comentado, pois precisará recodar;
+    #tela_messageBox = uic.loadUi("tela_messageBox.ui") - Comentado, pois precisará recodar;
     
 
     ######################################################################################
@@ -92,8 +93,8 @@ class Win():
           
 
     def messageBox(err):
-            Win.msgBoxT.login_btn.setText(err)
-            Win.msgBoxT.show()
+            Win.tela_messageBox.txtMsg.setText(err)
+            Win.tela_messageBox.show()
 
     def marcaPonto(matricula):      ##  FUNCIONAL, MAS PRECISAMOS MELHORAR A FORMA DE AMAZENAS A INFORMAÇÃO | NOME também precisa regastar da cadastraGP
         try:
@@ -123,30 +124,45 @@ class Win():
     ##################################
 
     def login():
-        user_email = Win.tela_login.user_login_edt.text()
+        #user_email = Win.tela_login.user_login_edt.text()
+        user_email = "bibicerantola@gmail.com"
         senha = Win.tela_login.user_password_edt.text()
         banco = sqlite3.connect('banco_cadastroGP.db') 
         cursor = banco.cursor()
         try:     
             cursor.execute("SELECT senha FROM cadastroGP WHERE user_email ='{}'".format(user_email))
-            senha_bd = cursor.fetchall()
+            senha_bd = cursor.fetchone()
             cursor.execute("SELECT admin FROM cadastroGP WHERE user_email = '{}'".format(user_email))
-            admVR = cursor.fetchall()
-            banco.close()
-            if hashlib.sha256(senha.encode('utf-8')).hexdigest() == senha_bd[0][0]:
-                if admVR[0][0] == 1:
-                    Win.tela_login.close()
-                    print("Chegou perfeitamente aqui")
-                    #Win.tela_menu_adm.show()       ## UI da tela de ADM, ainda não foi criada!!!
-                    #Win.tela_ponto.pontoButton_2.clicked.connect(lambda: Win.marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula | ADM View          
+            admVR = cursor.fetchone()
+            #if hashlib.sha256(senha.encode('utf-8')).hexdigest() == senha_bd[0]:
+            if hashlib.sha256("teste123".encode('utf-8')).hexdigest() == senha_bd[0]:
+                if admVR[0] == 1: 
+                    try:
+                        Win.tela_login.close()
+                        banco.close()
+                        #Win.tela_menu_adm.show()       ## UI da tela de ADM, ainda não foi criada!!!
+                        #Win.tela_ponto.pontoButton_2.clicked.connect(lambda: Win.marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula | ADM View 
+                    except ValueError as err:
+                        Win.messageBox(err)         
                 else: 
-                    Win.tela_login.close()
-                    Win.tela_menu.show()
-                    #Win.pontoT.pontoButton_2.clicked.connect(lambda: Win.marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula | USER View
+                    try:
+                        Win.tela_login.close()
+                        cursor.execute("SELECT primeiro_nome, segundo_nome, cargo, matricula, user_email FROM cadastroGP WHERE user_email ='{}'".format(user_email))
+                        senha_bd = cursor.fetchone()
+                        banco.close()
+                        Win.tela_menu.show()
+                        Win.tela_menu.lbl_nome.setText(senha_bd[0]+" "+senha_bd[1])
+                        Win.tela_menu.lbl_cargo.setText(senha_bd[2])
+                        Win.tela_menu.lbl_matricula.setText(senha_bd[3])
+                        Win.tela_menu.lbl_email.setText(senha_bd[4])
+                        #Win.pontoT.pontoButton_2.clicked.connect(lambda: Win.marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula | USER View
+                    except ValueError as err:
+                        Win.messageBox(err)
+                        
             else:
-                Win.tela_login.error_txt.setText("Dados de login incorretos!")
+                Win.messageBox("Dados de login incorretos!")
         except:
-            Win.tela_login.error_txt.setText("Erro ao validar o Login")
+            Win.messageBox("Erro ao validar o Login")
 
     ##################################
     # Telas | CADASTRO
@@ -161,8 +177,8 @@ class Win():
         senha = hashlib.sha256(Win.tela_cadastro.user_password_edt.text().encode('utf-8')).hexdigest()
         c_senha = hashlib.sha256(Win.tela_cadastro.user_password2_edt.text().encode('utf-8')).hexdigest()
         admin = 0
-        matricula = "null"
-        cargo = "null"
+        matricula = "n/a"
+        cargo = "n/a"
 
         if (senha == c_senha):
             try:
@@ -194,7 +210,7 @@ class Win():
         banco = sqlite3.connect('banco_cadastroGP.db') 
         cursor = banco.cursor()
         cursor.execute("SELECT user_email FROM cadastroGP WHERE user_email = '{}'".format(user_email))
-        user_emailVR = cursor.fetchall()
+        user_emailVR = cursor.fetchone()
         banco.close()
         if not user_emailVR:
             print("Chegou na condição de encontrar usuário no banco")
@@ -203,7 +219,7 @@ class Win():
             Win.tela_login.show()
             return
         
-        if user_email == user_emailVR[0][0]:
+        if user_email == user_emailVR[0]:
             Win.tela_resete_confirma.close()
             Win.tela_resete_altera.show()
         else: 
@@ -232,15 +248,13 @@ class Win():
                 Win.messageBox("Usuario atualizado com sucesso")
 
             except sqlite3.Error as erro:
-                print("Erro ao inserir os dados: "+str(erro))
-                #Win.messageBox("Erro ao inserir os dados: "+str(erro))
+                Win.messageBox("Erro ao inserir os dados: "+str(erro))
 
             Win.tela_resete_altera.close()
             Win.tela_login.show()
 
         else:
-            print("As senhas digitadas estão diferentes")
-            #Win.messageBox("As senhas digitadas estão diferentes")
+            Win.messageBox("As senhas digitadas estão diferentes")
     
     ##################################
     # Telas | MENU - CONSTRUIINDO
