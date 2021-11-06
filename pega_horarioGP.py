@@ -41,9 +41,35 @@ def verificarUTC(region):
 ######################################################################
 ## FUNÇÕES PARA COLETA DE HORÁRIO, DATA E UTC | OBSERVATÓRIO NACIONAL
 ######################################################################
+def curlDiaStr():
+    url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
+    return datetime.datetime.fromtimestamp(int(requests.get(url).text)).strftime('%d-%m-%Y')
+
+def curlDiaSemanaStr():
+    url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
+    weekday = datetime.datetime.fromtimestamp(int(requests.get(url).text)).weekday()
+    if weekday == 0:
+        return "Segunda-feira"
+    elif weekday == 1:
+        return "Terça-feira"
+    elif weekday == 2:
+        return "Quarta-feira"
+    elif weekday == 3:
+        return "Quinta-feira"
+    elif weekday == 4:
+        return "Sexta-feira"
+    elif weekday == 5:
+        return "Sábado"
+    else:
+        return "Domingo"
+
 def curlHoraStr():
     url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
-    return datetime.datetime.fromtimestamp(int(requests.get(url).text)).strftime('%Y-%m-%d %H:%M:%S')
+    return datetime.datetime.fromtimestamp(int(requests.get(url).text)).strftime('%d-%m-%Y %H:%M:%S')
+
+def curlSomenteHoraStr():
+    url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
+    return datetime.datetime.fromtimestamp(int(requests.get(url).text)).strftime('%H:%M:%S')
 
 def curlHoraDate():
     url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
@@ -54,4 +80,4 @@ def curlHoraInt():
     return int(requests.get(url).text)
 
 def curlFuso():
-    return datetime.datetime.fromtimestamp( curlHoraInt() + verificarUTC_num(geolocGP.region()) ).strftime('%Y-%m-%d %H:%M:%S') #Para testar outro estado, trocar "geoloc.region()" por "AC" ou outro estado de fuso horário diferente
+    return datetime.datetime.fromtimestamp( curlHoraInt() + verificarUTC_num(geolocGP.region()) ).strftime('%d-%m-%Y %H:%M:%S') #Para testar outro estado, trocar "geoloc.region()" por "AC" ou outro estado de fuso horário diferente

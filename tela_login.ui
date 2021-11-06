@@ -203,6 +203,9 @@
               <strikeout>false</strikeout>
              </font>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: rgb(255, 255, 255);
 border: none;</string>
@@ -491,6 +494,9 @@ border-color: rgb(120, 120, 120);</string>
                     <bold>true</bold>
                    </font>
                   </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">background-color: rgb(13, 28, 122);
 color: rgb(255, 255, 255);
@@ -538,6 +544,9 @@ border-color: rgb(120, 120, 120);</string>
                     <pointsize>10</pointsize>
                    </font>
                   </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">border: none;</string>
                   </property>
@@ -582,6 +591,9 @@ border-color: rgb(120, 120, 120);</string>
              <font>
               <pointsize>12</pointsize>
              </font>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(152, 4, 39);

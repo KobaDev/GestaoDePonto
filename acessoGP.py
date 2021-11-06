@@ -29,7 +29,7 @@ from PyQt5.QtCore import pyqtSignal, QObject
 import hashlib
 import threading
 import time
-import sys
+import sys, os
 
 
 ################################################################
@@ -57,7 +57,7 @@ class Worker(QObject):
         super(Worker, self).__init__(*args, **kwargs)
 
     def attData(self):
-        Win.tela_ponto.txtTime.setText(pega_horarioGP.curlHoraStr())
+        Win.tela_menu.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
 
     def relogio(self):
         self.updateDate.connect(self.attData)
@@ -146,13 +146,13 @@ class Win():
                     try:
                         Win.tela_login.close()
                         cursor.execute("SELECT primeiro_nome, segundo_nome, cargo, matricula, user_email FROM cadastroGP WHERE user_email ='{}'".format(user_email))
-                        senha_bd = cursor.fetchone()
+                        content_bd = cursor.fetchone()
                         banco.close()
                         Win.tela_menu.show()
-                        Win.tela_menu.lbl_nome.setText(senha_bd[0]+" "+senha_bd[1])
-                        Win.tela_menu.lbl_cargo.setText(senha_bd[2])
-                        Win.tela_menu.lbl_matricula.setText(senha_bd[3])
-                        Win.tela_menu.lbl_email.setText(senha_bd[4])
+                        Win.tela_menu.lbl_nome.setText(content_bd[0]+" "+content_bd[1])
+                        Win.tela_menu.lbl_cargo.setText(content_bd[2])
+                        Win.tela_menu.lbl_matricula.setText(content_bd[3])
+                        Win.tela_menu.lbl_email.setText(content_bd[4])
                         #Win.pontoT.pontoButton_2.clicked.connect(lambda: Win.marcaPonto(matricula)) #Declarar dentro da função para não perder o valor da matrícula | USER View
                     except ValueError as err:
                         Win.messageBox(err)
@@ -283,38 +283,46 @@ class Win():
 
             ## PAGINA DE MARCA PONTO ##
             self.ui.marcaponto_btn1.clicked.connect(self.user_marcaponto_pg)
-            self.ui.marcaponto_btn2.clicked.connect(self.user_marcaponto_pg)
+            self.ui.marcaponto_btn2.clicked.connect(self.user_marcaponto_pg1)
 
             ## PAGINA DE RELATORIO ##
             self.ui.relatorio_btn1.clicked.connect(self.relatorio_fr_pg)
             self.ui.relatorio_btn2.clicked.connect(self.relatorio_fr_pg)
 
-
-        def show(self):
-            self.main_win.show()
-
-        def main_pg(self):
-            self.ui.stackedWidget.setCurrentWidget(self.ui.main_pg)
-
-        def data_view_pg(self):
-            self.ui.stackedWidget.setCurrentWidget(self.ui.data_view_pg)
-
-        def data_change_pg1(self):
-            self.ui.stackedWidget.setCurrentWidget(self.ui.data_change_pg1)
-
-        def data_change_pg2(self):
-            self.ui.stackedWidget.setCurrentWidget(self.ui.data_change_pg2)
-
-        def user_marcaponto_pg(self):
-            self.ui.stackedWidget.setCurrentWidget(self.ui.user_marcaponto_pg)
-
-        def relatorio_fr_pg(self):
-            self.ui.stackedWidget.setCurrentWidget(self.ui.relatorio_fr_pg)
         
-        def sair(self):
-            print("Ok, falta construir uma função de encerrar o programa")
-        
-        
+    def show():
+        Win.main_win.show()
+
+    def main_pg():
+        Win.tela_menu.stackedWidget.setCurrentWidget(Win.tela_menu.main_pg)
+
+    def data_view_pg():
+        Win.tela_menu.stackedWidget.setCurrentWidget(Win.tela_menu.data_view_pg)
+
+    def data_change_pg1():
+        Win.tela_menu.stackedWidget.setCurrentWidget(Win.tela_menu.data_change_pg1)
+
+    def data_change_pg2():
+        Win.tela_menu.stackedWidget.setCurrentWidget(Win.tela_menu.data_change_pg2)
+
+    def user_marcaponto_pg():
+        Win.tela_menu.stackedWidget.setCurrentIndex(0)
+    def user_marcaponto_pg1():
+        Win.tela_menu.stackedWidget.setCurrentIndex(1)
+    def user_marcaponto_pg2():
+        Win.tela_menu.stackedWidget.setCurrentIndex(2)
+    def user_marcaponto_pg3():
+        Win.tela_menu.stackedWidget.setCurrentIndex(3)
+    def user_marcaponto_pg4():
+        Win.tela_menu.stackedWidget.setCurrentIndex(4)
+        Win.tela_menu.lbl_dia.setText(pega_horarioGP.curlDiaSemanaStr()+", "+pega_horarioGP.curlDiaStr())
+        Win.tela_menu.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
+        threading.Thread(target=Win.wk.relogio).start()
+    def user_marcaponto_pg5():
+        Win.tela_menu.stackedWidget.setCurrentIndex(5)
+    
+    def sair():
+        os._exit(1)
 
  
 
@@ -330,24 +338,24 @@ class Win():
     tela_login.recupera_btn.clicked.connect(reset_confirm)                           # Chama confirmação de matrícula p/ Reset;
 
     ## BOTÕES DA TOOLBAR ##
-    tela_menu.home_btn.clicked.connect(mainwindow)
-    tela_menu.sair_btn.clicked.connect(mainwindow)
+    tela_menu.home_btn.clicked.connect(user_marcaponto_pg)
+    tela_menu.sair_btn.clicked.connect(sair)
 
     ## PAGINA DE DADOS ##
-    tela_menu.meus_dados1_btn.clicked.connect(mainwindow)
-    tela_menu.meus_dados2_btn.clicked.connect(mainwindow)
-    tela_menu.data_edit_btn.clicked.connect(mainwindow)
-    tela_menu.data_alterar_senha_btn.clicked.connect(mainwindow)
+    tela_menu.meus_dados1_btn.clicked.connect(user_marcaponto_pg1)
+    tela_menu.meus_dados2_btn.clicked.connect(user_marcaponto_pg1)
+    tela_menu.data_edit_btn.clicked.connect(user_marcaponto_pg2)
+    tela_menu.data_alterar_senha_btn.clicked.connect(user_marcaponto_pg3)
     #ui.data_salvar_btn1.clicked.connect(main_pg)
     #ui.data_salvar_btn2.clicked.connect(main_pg)
 
     ## PAGINA DE MARCA PONTO ##
-    tela_menu.marcaponto_btn1.clicked.connect(mainwindow)
-    tela_menu.marcaponto_btn2.clicked.connect(mainwindow)
+    tela_menu.marcaponto_btn1.clicked.connect(user_marcaponto_pg4)
+    tela_menu.marcaponto_btn2.clicked.connect(user_marcaponto_pg4)
 
     ## PAGINA DE RELATORIO ##
-    tela_menu.relatorio_btn1.clicked.connect(mainwindow)
-    tela_menu.relatorio_btn2.clicked.connect(mainwindow)
+    tela_menu.relatorio_btn1.clicked.connect(user_marcaponto_pg5)
+    tela_menu.relatorio_btn2.clicked.connect(user_marcaponto_pg5)
 
     tela_resete_confirma.busca_email_btn.clicked.connect(lambda: Win.recupera_senha(Win.tela_resete_confirma.user_email_edt.text()))
     tela_resete_altera.altera_senha_btn.clicked.connect(altera_cadastro)

@@ -404,7 +404,7 @@ background-color: rgb(255, 255, 255);</string>
        <string notr="true">background-color: rgb(222, 222, 222);</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_pg">
        <property name="sizePolicy">
@@ -1060,6 +1060,9 @@ border-style: outset;
                      <weight>50</weight>
                      <bold>false</bold>
                     </font>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(152, 4, 39);
@@ -1999,6 +2002,9 @@ border-color: rgb(120, 120, 120);</string>
                  </property>
                  <item>
                   <widget class="QLineEdit" name="lineEdit_8">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -2023,6 +2029,9 @@ border-color: rgb(120, 120, 120);</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
                    </property>
                    <property name="placeholderText">
                     <string>Senha atual</string>
@@ -2031,6 +2040,9 @@ border-color: rgb(120, 120, 120);</string>
                  </item>
                  <item>
                   <widget class="QLineEdit" name="lineEdit_9">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -2055,6 +2067,9 @@ border-color: rgb(120, 120, 120);</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
                    </property>
                    <property name="placeholderText">
                     <string>Senha nova</string>
@@ -2063,6 +2078,9 @@ border-color: rgb(120, 120, 120);</string>
                  </item>
                  <item>
                   <widget class="QLineEdit" name="lineEdit_10">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -2087,6 +2105,9 @@ border-color: rgb(120, 120, 120);</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="readOnly">
+                    <bool>false</bool>
                    </property>
                    <property name="placeholderText">
                     <string>Confirar senha</string>
@@ -2525,7 +2546,7 @@ border-style: outset;
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_38">
                     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                     <widget class="QLabel" name="label_14">
+                     <widget class="QLabel" name="lbl_dia">
                       <property name="font">
                        <font>
                         <family>Lucida Console</family>
@@ -2553,17 +2574,17 @@ border-style: outset;
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_37">
                     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                     <widget class="QLabel" name="label_13">
+                     <widget class="QLabel" name="lbl_data">
                       <property name="minimumSize">
                        <size>
-                        <width>150</width>
+                        <width>350</width>
                         <height>150</height>
                        </size>
                       </property>
                       <property name="font">
                        <font>
-                        <family>Lucida Bright</family>
-                        <pointsize>14</pointsize>
+                        <family>Arial</family>
+                        <pointsize>20</pointsize>
                        </font>
                       </property>
                       <property name="styleSheet">

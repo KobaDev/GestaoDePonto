@@ -338,6 +338,9 @@ border-color: rgb(120, 120, 120);</string>
                  <pointsize>14</pointsize>
                 </font>
                </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(152, 4, 39);
 color: rgb(255, 255, 255);
@@ -529,6 +532,9 @@ border-color: rgb(120, 120, 120);</string>
                  <family>Lucida Console</family>
                  <pointsize>14</pointsize>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
                 <string notr="true">background-color: rgb(13, 28, 122);
