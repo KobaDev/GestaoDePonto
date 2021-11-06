@@ -124,8 +124,7 @@ class Win():
     ##################################
 
     def login():
-        #user_email = Win.tela_login.user_login_edt.text()
-        user_email = "bibicerantola@gmail.com"
+        user_email = Win.tela_login.user_login_edt.text()
         senha = Win.tela_login.user_password_edt.text()
         banco = sqlite3.connect('banco_cadastroGP.db') 
         cursor = banco.cursor()
@@ -134,8 +133,7 @@ class Win():
             senha_bd = cursor.fetchone()
             cursor.execute("SELECT admin FROM cadastroGP WHERE user_email = '{}'".format(user_email))
             admVR = cursor.fetchone()
-            #if hashlib.sha256(senha.encode('utf-8')).hexdigest() == senha_bd[0]:
-            if hashlib.sha256("teste123".encode('utf-8')).hexdigest() == senha_bd[0]:
+            if hashlib.sha256(senha.encode('utf-8')).hexdigest() == senha_bd[0]:
                 if admVR[0] == 1: 
                     try:
                         Win.tela_login.close()
