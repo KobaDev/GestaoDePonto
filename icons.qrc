@@ -1,19 +1,19 @@
 <RCC>
   <qresource prefix="icons">
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeExcluir.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeFechaduraLogin.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeFotoFuncionarioAmpliada.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeFotoNavBar.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeFuncionario.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeHome.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeMarcarPonto.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/iconeMarcarPontoSelecionado.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeMeusDados.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeMeusDadosSelecionado.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconePessoaCadastro.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconePessoaLogin.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeRelatório.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeRelatorioSelecionado.svg</file>
-    <file>Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconeSair.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeExcluir.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeFechaduraLogin.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeFotoFuncionarioAmpliada.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeFotoNavBar.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeFuncionario.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeHome.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeMarcarPonto.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/iconeMarcarPontoSelecionado.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeMeusDados.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeMeusDadosSelecionado.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconePessoaCadastro.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconePessoaLogin.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeRelatório.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeRelatorioSelecionado.svg</file>
+    <file>telas e icons/icons/Bianca/Icones e Imagens/IconeSair.svg</file>
   </qresource>
 </RCC>
