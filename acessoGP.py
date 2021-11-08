@@ -411,7 +411,7 @@ class Win():
                 cursor = banco.cursor()
                 cursor.execute("SELECT senha FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
                 senha_bd = cursor.fetchone()
-                if hashlib.sha256(senha_atual.encode('utf-8')).hexdigest() == senha_bd[0]:            
+                if senha_atual == senha_bd[0]:           
                     if (nova_senha == c_nova_senha):
                         try:
                             cursor.execute("UPDATE banco_cadastroGP SET primeiro_nome = '"+primeiro_nome+"' WHERE user_email = '{}'".format(user_email))
