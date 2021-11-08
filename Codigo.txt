@@ -1,0 +1,69 @@
+    ######################################################################################
+    
+    tela_login.login_btn.clicked.connect(login)                                      # Chama Função que verifica Login;
+    tela_login.cadastra_btn.clicked.connect(chama_cad)                               # Chama tela de Cadastro;
+    tela_login.user_password_edt.setEchoMode(QtWidgets.QLineEdit.Password)           # ;
+    tela_login.recupera_btn.clicked.connect(reset_confirm)                           # Chama confirmação de matrícula p/ Reset;
+
+    ## BOTÕES DA TOOLBAR ##
+    tela_menu.home_btn.clicked.connect(main_pg)
+    tela_menu.sair_btn.clicked.connect(sair)
+
+    ## PAGINA DE DADOS ##
+    tela_menu.meus_dados1_btn.clicked.connect(data_view_pg)
+    tela_menu.meus_dados2_btn.clicked.connect(data_view_pg)
+    tela_menu_adm.meus_dados1_btn.clicked.connect(data_view_pg)
+    tela_menu_adm.meus_dados2_btn.clicked.connect(data_view_pg)
+
+    tela_menu.data_edit_btn.clicked.connect(data_change_pg1)
+    tela_menu_adm.data_edit_btn.clicked.connect(data_change_pg1)
+
+    tela_menu.data_alterar_senha_btn.clicked.connect(data_change_pg2)
+    tela_menu_adm.data_alterar_senha_btn.clicked.connect(data_change_pg2)
+
+
+    #ui.data_salvar_btn1.clicked.connect(main_pg)
+    #ui.data_salvar_btn2.clicked.connect(main_pg)
+
+    ## PAGINA DE MARCA PONTO ##
+    tela_menu.marcaponto_btn1.clicked.connect(marcaponto_pg)
+    tela_menu.marcaponto_btn2.clicked.connect(marcaponto_pg)
+    tela_menu_adm.marcaponto_btn1.clicked.connect(marcaponto_pg)
+    tela_menu_adm.marcaponto_btn2.clicked.connect(marcaponto_pg)
+
+    ## PAGINA DE RELATORIO ##
+    tela_menu.relatorio_btn1.clicked.connect(relatorio_fr_pg)
+    tela_menu.relatorio_btn2.clicked.connect(relatorio_fr_pg)
+    tela_menu_adm.relatorio_btn1.clicked.connect(relatorio_fr_pg)
+    tela_menu_adm.relatorio_btn2.clicked.connect(relatorio_fr_pg)
+
+    tela_resete_confirma.busca_email_btn.clicked.connect(lambda: Win.recupera_senha(Win.tela_resete_confirma.user_email_edt.text()))
+    tela_resete_altera.altera_senha_btn.clicked.connect(altera_cadastro)
+
+    tela_cadastro.cadastra_func_btn.clicked.connect(cadastrar)  # Chama Funcao para cadastrar Colaborador;
+
+    #tela_menu.DEFINIR_NOME_BOTÃO.clicked.connect(telaPonto)     # Chama tela de Ponto;
+    #tela_menu_adm.DEFNIR_NOME_BOTÃO.clicked.connect(telaPonto)  # Chama tela de Ponto;
+
+    tela_login.show()
+    ######################################################################################
+
+    #   tela_cadastro = uic.loadUi("tela_cadastro.ui")
+    #   tela_login = uic.loadUi("tela_login.ui")
+    #   tela_menu = uic.loadUi("tela_menu.ui")
+    #   tela_menu_adm = uic.loadUi("tela_adm.ui")  - ##             Tela ainda não foi desenhada;
+    #   tela_resete_confirma = uic.loadUi("tela_reset_confirm.ui")
+    #   tela_resete_altera = uic.loadUi("tela_reset_altera.ui")
+
+
+
+## variaveis:
+user_email = ''
+matricula = ''
+Win.app.exec()
+
+#if __name__ == '__main__':
+    #app = Win.app
+    #main_win = Win.MainWindow()
+    #main_win.show()
+    #sys.exit(app.exec_(Win.MainWindow()))

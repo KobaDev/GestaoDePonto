@@ -139,6 +139,39 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_15">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="icons.qrc">:/icons/telas e icons/icons/Bianca/Icones e Imagens/Logo.svg</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -191,6 +224,9 @@
           </property>
           <item>
            <widget class="QPushButton" name="back_button">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="styleSheet">
              <string notr="true">border: none;
 </string>
@@ -199,8 +235,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>:/icons/Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/icons/Designer Fuel PACK/dripicons-v2-by-amit-jakhu-03-20-2016/SVG/return.svg</normaloff>:/icons/Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/icons/Designer Fuel PACK/dripicons-v2-by-amit-jakhu-03-20-2016/SVG/return.svg</iconset>
+             <iconset resource="icons.qrc">
+              <normaloff>:/icons2/telas e icons/icons/Designer Fuel PACK/dripicons-v2-by-amit-jakhu-03-20-2016/SVG/cross.svg</normaloff>:/icons2/telas e icons/icons/Designer Fuel PACK/dripicons-v2-by-amit-jakhu-03-20-2016/SVG/cross.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -255,7 +291,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="icons.qrc">:/icons/Desing_MODERN-UI/telas_Novas_UI - (Jadson implementação)/telas e icons/icons/Bianca/Icones e Imagens/IconePessoaCadastro.svg</pixmap>
+             <pixmap resource="icons.qrc">:/icons/telas e icons/icons/Bianca/Icones e Imagens/IconePessoaCadastro.svg</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -607,6 +643,9 @@ border-color: rgb(120, 120, 120);</string>
               <pointsize>18</pointsize>
              </font>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(152, 4, 39);
 color: rgb(255, 255, 255);
@@ -630,7 +669,6 @@ border-color: rgb(120, 120, 120);</string>
   </widget>
  </widget>
  <resources>
-  <include location="icons.qrc"/>
   <include location="icons.qrc"/>
  </resources>
  <connections/>

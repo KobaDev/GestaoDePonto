@@ -136,6 +136,21 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_10">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="icons.qrc">:/icons/telas e icons/icons/Bianca/Icones e Imagens/Logo.svg</pixmap>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -403,6 +418,8 @@ border-color: rgb(120, 120, 120);</string>
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
