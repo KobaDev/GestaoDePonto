@@ -33,7 +33,7 @@ class tokenClass():
 
 @app.route('/getMfaCode', methods=['POST'])
 def getMfaCodeAPI():
-    if not request.json or 'email' not in request.json:
+    if not request.json or ('email' and 'usrToken' and 'operacao') not in request.json:
         abort(400)
     email = request.json['email']
     usrToken = request.json['usrToken']
