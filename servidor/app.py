@@ -1,7 +1,6 @@
 from flask import Flask, request, abort, jsonify
 import time
-from threading import Thread
-import os, binascii, sqlite3, datetime
+import os, binascii, sqlite3, datetime, inputFilter
 
 app = Flask(__name__)
 
@@ -38,6 +37,10 @@ def getMfaCodeAPI():
     email = request.json['email']
     usrToken = request.json['usrToken']
     operacao = request.json['operacao']
+
+    if inputFilter.checkSqlInjection(email):    return "Injeção de SQL detectada.\n"
+    if inputFilter.checkSqlInjection(usrToken):    return "Injeção de SQL detectada.\n"
+    if inputFilter.checkSqlInjection(operacao):    return "Injeção de SQL detectada.\n"
 
     tk = tokenClass()
 
