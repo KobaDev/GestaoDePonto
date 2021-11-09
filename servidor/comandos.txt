@@ -1,0 +1,2 @@
+Iniciar API:
+    gurnicorn --bind 102.168.1.X:8080 wsgi:app

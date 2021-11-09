@@ -246,6 +246,13 @@ class Win():
         matricula = "n/a"
         cargo = "n/a"
 
+        def telaCadastroLimpa():
+            Win.tela_cadastro.primeiro_nome_edt.setText('')
+            Win.tela_cadastro.segundo_nome_edt.setText('')
+            Win.tela_cadastro.user_email_edt.setText('')
+            Win.tela_cadastro.user_password_edt.setText('')
+            Win.tela_cadastro.user_password2_edt.setText('')
+
         if (senha == c_senha):
             try:
                 banco = sqlite3.connect('banco_cadastroGP.db') 
@@ -260,11 +267,7 @@ class Win():
             except sqlite3.Error as erro:
                 Win.messageBox("Erro ao inserir os dados: "+str(erro))
             Win.tela_cadastro.close()
-            Win.tela_cadastro.primeiro_nome_edt.setText('')
-            Win.tela_cadastro.segundo_nome_edt.setText('')
-            Win.tela_cadastro.user_email_edt.setText('')
-            Win.tela_cadastro.user_password_edt.setText('')
-            Win.tela_cadastro.user_password2_edt.setText('')
+            telaCadastroLimpa()
             Win.tela_login.show()
 
 
@@ -446,6 +449,14 @@ class Win():
         nova_senha = hashlib.sha256(Win.tela_menu.senha_nova_edt.text().encode('utf-8')).hexdigest()
         c_nova_senha = hashlib.sha256(Win.tela_menu.senha_nova_confirma_edt.text().encode('utf-8')).hexdigest()
 
+        def telaMenuLimpa():
+            Win.tela_menu.email_edt2.setText('')
+            Win.tela_menu.primeiro_nome_edt2.setText('')
+            Win.tela_menu.segundo_nome_edt2.setText('')
+            Win.tela_menu.senha_atual_edt.setText('')
+            Win.tela_menu.senha_nova_edt.setText('')
+            Win.tela_menu.senha_nova_confirma_edt.setText('')
+
         if Win.tela_menu.confirm_alterar.isChecked():
             banco = sqlite3.connect('banco_cadastroGP.db') 
             cursor = banco.cursor()
@@ -463,33 +474,18 @@ class Win():
                         banco.close()
 
                         Win.messageBox("Usuario atualizado com sucesso")
-                        Win.tela_menu.email_edt2.setText('')
-                        Win.tela_menu.primeiro_nome_edt2.setText('')
-                        Win.tela_menu.segundo_nome_edt2.setText('')
-                        Win.tela_menu.senha_atual_edt.setText('')
-                        Win.tela_menu.senha_nova_edt.setText('')
-                        Win.tela_menu.senha_nova_confirma_edt.setText('')
+                        telaMenuLimpa()
 
                     else:
                         Win.messageBox("As senhas digitadas estão diferentes")
-                        Win.tela_menu.email_edt2.setText('')
-                        Win.tela_menu.primeiro_nome_edt2.setText('')
-                        Win.tela_menu.segundo_nome_edt2.setText('')
-                        Win.tela_menu.senha_atual_edt.setText('')
-                        Win.tela_menu.senha_nova_edt.setText('')
-                        Win.tela_menu.senha_nova_confirma_edt.setText('')
+                        telaMenuLimpa()
 
                 except sqlite3.Error as erro:
                     Win.messageBox("Erro ao inserir os dados: "+str(erro))
 
         if Win.tela_menu.confirm_cancelar.isChecked():
             Win.messageBox("Não foram efetuadas mudanças no seu perfil")
-            Win.tela_menu.email_edt2.setText('')
-            Win.tela_menu.primeiro_nome_edt2.setText('')
-            Win.tela_menu.segundo_nome_edt2.setText('')
-            Win.tela_menu.senha_atual_edt.setText('')
-            Win.tela_menu.senha_nova_edt.setText('')
-            Win.tela_menu.senha_nova_confirma_edt.setText('')
+            telaMenuLimpa()
 
     def atualizada_cad_logado_ADM():            #ATUALIZA PRIMEIRO E SEGUNDO NOME, E-MAIL;
         user_email = Win.tela_menu_adm.email_edt.text()
@@ -525,6 +521,14 @@ class Win():
         nova_senha = hashlib.sha256(Win.tela_menu_adm.senha_nova_edt.text().encode('utf-8')).hexdigest()
         c_nova_senha = hashlib.sha256(Win.tela_menu_adm.senha_nova_confirma_edt.text().encode('utf-8')).hexdigest()
 
+        def telaMenuAdmLimpa():        
+            Win.tela_menu_adm.email_edt2.setText('')
+            Win.tela_menu_adm.primeiro_nome_edt2.setText('')
+            Win.tela_menu_adm.segundo_nome_edt2.setText('')
+            Win.tela_menu_adm.senha_atual_edt.setText('')
+            Win.tela_menu_adm.senha_nova_edt.setText('')
+            Win.tela_menu_adm.senha_nova_confirma_edt.setText('')
+
         if Win.tela_menu_adm.confirm_alterar.isChecked():
             banco = sqlite3.connect('banco_cadastroGP.db') 
             cursor = banco.cursor()
@@ -542,33 +546,18 @@ class Win():
                         banco.close()
 
                         Win.messageBox("Usuario atualizado com sucesso")
-                        Win.tela_menu_adm.email_edt2.setText('')
-                        Win.tela_menu_adm.primeiro_nome_edt2.setText('')
-                        Win.tela_menu_adm.segundo_nome_edt2.setText('')
-                        Win.tela_menu_adm.senha_atual_edt.setText('')
-                        Win.tela_menu_adm.senha_nova_edt.setText('')
-                        Win.tela_menu_adm.senha_nova_confirma_edt.setText('')
+                        telaMenuAdmLimpa()
 
                     else:
                         Win.messageBox("As senhas digitadas estão diferentes")
-                        Win.tela_menu_adm.email_edt2.setText('')
-                        Win.tela_menu_adm.primeiro_nome_edt2.setText('')
-                        Win.tela_menu_adm.segundo_nome_edt2.setText('')
-                        Win.tela_menu_adm.senha_atual_edt.setText('')
-                        Win.tela_menu_adm.senha_nova_edt.setText('')
-                        Win.tela_menu_adm.senha_nova_confirma_edt.setText('')
+                        telaMenuAdmLimpa()
 
                 except sqlite3.Error as erro:
                     Win.messageBox("Erro ao inserir os dados: "+str(erro))
 
         if Win.tela_menu_adm.confirm_cancelar.isChecked():
             Win.messageBox("Não foram efetuadas mudanças no seu perfil")
-            Win.tela_menu_adm.email_edt2.setText('')
-            Win.tela_menu_adm.primeiro_nome_edt2.setText('')
-            Win.tela_menu_adm.segundo_nome_edt2.setText('')
-            Win.tela_menu_adm.senha_atual_edt.setText('')
-            Win.tela_menu_adm.senha_nova_edt.setText('')
-            Win.tela_menu_adm.senha_nova_confirma_edt.setText('')
+            telaMenuAdmLimpa()
 
     #############################################################################################################################
     ##                                                LÓGICA DE BOTÕES                                                         ##

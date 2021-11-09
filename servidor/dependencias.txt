@@ -1,0 +1,1 @@
+sudo apt install pip3 flask apache2 gunicorn sqlite3
