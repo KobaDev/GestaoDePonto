@@ -102,17 +102,54 @@ class Win():
             Win.tela_messageBox.txtMsg.setText(err)
             Win.tela_messageBox.show()
 
-    def marcaPonto(user_email):      ##  FUNCIONAL, MAS PRECISAMOS MELHORAR A FORMA DE AMAZENAS A INFORMAÇÃO | NOME também precisa regastar da cadastraGP
+    def marcaPonto():
         data = pega_horarioGP.curlDiaStr()
         hora = pega_horarioGP.curlSomenteHoraStr()
         utc = pega_horarioGP.verificarUTC(geolocGP.region())
+        user_email = Win.tela_menu.lbl_email.text()
+
+        banco = sqlite3.connect('banco_cadastroGP.db') 
+        cursor = banco.cursor()  
+        cursor.execute("SELECT primeiro_nome FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+        primeiro_nome = cursor.fetchone()
+        cursor.execute("SELECT segundo_nome FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+        segundo_nome = cursor.fetchone()
+        cursor.execute("SELECT matricula FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+        matricula = cursor.fetchone()
+        banco.close()
 
         try:
             banco = sqlite3.connect('banco_pontoGP.db') 
             cursor = banco.cursor()            
             cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text)")
-            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome+"','"+segundo_nome+"','"+matricula+"','"+data+"','"+hora+"','"+utc+"')")
-      
+            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"')")
+            banco.commit() 
+            banco.close()
+            Win.messageBox("Ponto registrado com sucesso.")
+
+        except sqlite3.Error as erro:
+            Win.messageBox("Erro ao inserir os dados: "+str(erro))
+    
+    def marcaPontoADM():
+        data = pega_horarioGP.curlDiaStr()
+        hora = pega_horarioGP.curlSomenteHoraStr()
+        utc = pega_horarioGP.verificarUTC(geolocGP.region())
+        user_email = Win.tela_menu_adm.lbl_email.text()
+
+        banco = sqlite3.connect('banco_cadastroGP.db') 
+        cursor = banco.cursor()  
+        cursor.execute("SELECT primeiro_nome FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+        primeiro_nome = cursor.fetchone()
+        cursor.execute("SELECT segundo_nome FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+        segundo_nome = cursor.fetchone()
+        cursor.execute("SELECT matricula FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+        matricula = cursor.fetchone()
+
+        try:
+            banco = sqlite3.connect('banco_pontoGP.db') 
+            cursor = banco.cursor()            
+            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text)")
+            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"')")
             banco.commit() 
             banco.close()
             Win.messageBox("Ponto registrado com sucesso.")
@@ -120,7 +157,6 @@ class Win():
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao inserir os dados: "+str(erro))
 
-        
 
     ######################################################################################
     ##                                      TELAS
@@ -140,14 +176,15 @@ class Win():
             senha_bd = cursor.fetchone()
             cursor.execute("SELECT admin FROM banco_cadastroGP WHERE user_email = '{}'".format(user_email))
             admVR = cursor.fetchone()
+            cursor.execute("SELECT primeiro_nome, segundo_nome, cargo, matricula, user_email FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+            content_bd = cursor.fetchone()
+            banco.close()
+
+
             if hashlib.sha256(senha.encode('utf-8')).hexdigest() == senha_bd[0]:
                 if admVR[0] == 1: 
                     try:
                         Win.tela_login.close()
-                        cursor.execute("SELECT primeiro_nome, segundo_nome, cargo, matricula, user_email FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
-                        content_bd = cursor.fetchone()
-                        banco.close()
-
                         Win.tela_menu_adm.show()
                         Win.tela_menu_adm.lbl_nome.setText(content_bd[0]+" "+content_bd[1])
                         Win.tela_menu_adm.lbl_cargo.setText(content_bd[2])
@@ -161,18 +198,11 @@ class Win():
                         Win.tela_menu_adm.username_txt_2.setText("Nome: "+content_bd[0]+" "+content_bd[1])
                         Win.tela_menu_adm.cargo_txt_2.setText("Cargo: "+content_bd[2])
                         Win.tela_menu_adm.matricula_txt_2.setText("Matrícula: "+content_bd[3])
-
-                        #Win.tela_menu_adm.marcaponto_btn1.clicked.connect(lambda: Win.marcaPonto(user_email)) #Declarar dentro da função para não perder o valor da e-mail | ADM View 
-                        #Win.tela_menu_adm.marcaponto_btn2.clicked.connect(lambda: Win.marcaPonto(user_email)) #Declarar dentro da função para não perder o valor da e-mail | ADM View 
                     except ValueError as err:
                         Win.messageBox(err)         
                 else: 
                     try:
-                        Win.tela_login.close()
-                        cursor.execute("SELECT primeiro_nome, segundo_nome, cargo, matricula, user_email FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
-                        content_bd = cursor.fetchone()
-                        banco.close()
-                        
+                        Win.tela_login.close()                        
                         Win.tela_menu.show()
                         Win.tela_menu.lbl_nome.setText(content_bd[0]+" "+content_bd[1])
                         Win.tela_menu.lbl_cargo.setText(content_bd[2])
@@ -186,14 +216,13 @@ class Win():
                         Win.tela_menu.username_txt_2.setText("Nome: "+content_bd[0]+" "+content_bd[1])
                         Win.tela_menu.cargo_txt_2.setText("Cargo: "+content_bd[2])
                         Win.tela_menu.matricula_txt_2.setText("Matrícula: "+content_bd[3])
-
-                        #Win.tela_menu.marcaponto_btn1.clicked.connect(lambda: Win.marcaPonto(user_email)) #Declarar dentro da função para não perder o valor da e-mail | ADM View 
-                        #Win.tela_menu.marcaponto_btn2.clicked.connect(lambda: Win.marcaPonto(user_email)) #Declarar dentro da função para não perder o valor da e-mail | ADM View 
                     except ValueError as err:
                         Win.messageBox(err)
                         
             else:
                 Win.messageBox("Dados de login incorretos!")
+                Win.tela_login.user_login_edt.setText('')
+                Win.tela_login.user_password_edt.setText('')
         except:
             Win.messageBox("Erro ao validar o Login")
 
@@ -226,15 +255,23 @@ class Win():
 
                 banco.commit() 
                 banco.close()
-                Win.tela_cadastro.cadastra_func_btn.setText("Usuario cadastrado com sucesso")
+                Win.messageBox("Usuario cadastrado com sucesso")
 
             except sqlite3.Error as erro:
                 Win.messageBox("Erro ao inserir os dados: "+str(erro))
             Win.tela_cadastro.close()
+            Win.tela_cadastro.primeiro_nome_edt.setText('')
+            Win.tela_cadastro.segundo_nome_edt.setText('')
+            Win.tela_cadastro.user_email_edt.setText('')
+            Win.tela_cadastro.user_password_edt.setText('')
+            Win.tela_cadastro.user_password2_edt.setText('')
             Win.tela_login.show()
 
+
         else:
-            Win.tela_cadastro.cad_return.setText("As senhas digitadas estão diferentes")
+            Win.messageBox("As senhas digitadas estão diferentes")
+            Win.tela_cadastro.user_password_edt.setText('')
+            Win.tela_cadastro.user_password2_edt.setText('')
     
     ##################################
     # Telas | RESET CONFIRM - CONSTRUINDO (NÃO LINKADO)
@@ -270,7 +307,7 @@ class Win():
     def altera_cadastro(user_email):
         user_email = Win.tela_resete_confirma.user_email_edt.text()
         Win.tela_resete_altera.show()
-        #codigo_seg = Win.tela_resete_altera.codigo_edt.text()      -   Não implmentado no código, precisa criar nuva função de verificação e criar animação da UI.
+        codigo = Win.tela_resete_altera.codigo_edt.text()       # Função não está sendo usada
         senha = hashlib.sha256(Win.tela_resete_altera.user_password_edt.text().encode('utf-8')).hexdigest()
         c_senha = hashlib.sha256(Win.tela_resete_altera.user_password2_edt.text().encode('utf-8')).hexdigest()
 
@@ -286,12 +323,16 @@ class Win():
 
             except sqlite3.Error as erro:
                 Win.messageBox("Erro ao inserir os dados: "+str(erro))
-
+            Win.tela_resete_altera.codigo_edt.setText('')
+            Win.tela_resete_altera.user_password_edt.setText('')
+            Win.tela_resete_altera.user_password2_edt.setText('')
             Win.tela_resete_altera.close()
             Win.tela_login.show()
 
         else:
             Win.messageBox("As senhas digitadas estão diferentes")
+            Win.tela_resete_altera.user_password_edt.setText('')
+            Win.tela_resete_altera.user_password2_edt.setText('')
     
     ##################################
     # Telas | MENU - CONSTRUIINDO
@@ -313,7 +354,7 @@ class Win():
         Win.tela_menu.stackedWidget.setCurrentIndex(3)
         Win.tela_menu_adm.stackedWidget.setCurrentIndex(3)
 
-    def user_marcaponto_pg4():
+    def user_marcaponto_pg4(user_email):
         Win.tela_menu.stackedWidget.setCurrentIndex(4)
         Win.tela_menu_adm.stackedWidget.setCurrentIndex(4)
 
@@ -406,27 +447,28 @@ class Win():
         c_nova_senha = hashlib.sha256(Win.tela_menu.senha_nova_confirma_edt.text().encode('utf-8')).hexdigest()
 
         if Win.tela_menu.confirm_alterar.isChecked():
-            try:
-                banco = sqlite3.connect('banco_cadastroGP.db') 
-                cursor = banco.cursor()
-                cursor.execute("SELECT senha FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
-                senha_bd = cursor.fetchone()
-                if senha_atual == senha_bd[0]:           
-                    if (nova_senha == c_nova_senha):
-                        try:
-                            cursor.execute("UPDATE banco_cadastroGP SET primeiro_nome = '"+primeiro_nome+"' WHERE user_email = '{}'".format(user_email))
-                            cursor.execute("UPDATE banco_cadastroGP SET segundo_nome = '"+segundo_nome+"' WHERE user_email = '{}'".format(user_email))
-                            cursor.execute("UPDATE banco_cadastroGP SET user_email = '"+user_email+"' WHERE user_email = '{}'".format(user_email))
-                            cursor.execute("UPDATE banco_cadastroGP SET senha = '"+nova_senha+"' WHERE user_email = '{}'".format(user_email))
-                            banco.commit() 
-                            banco.close()
-                            Win.messageBox("Usuario atualizado com sucesso")
-                            Win.tela_menu.email_edt2.setText('')
-                            Win.tela_menu.primeiro_nome_edt2.setText('')
-                            Win.tela_menu.segundo_nome_edt2.setText('')
+            banco = sqlite3.connect('banco_cadastroGP.db') 
+            cursor = banco.cursor()
+            cursor.execute("SELECT senha FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
+            senha_bd = cursor.fetchone()
 
-                        except sqlite3.Error as erro:
-                            Win.messageBox("Erro ao inserir os dados: "+str(erro))
+            if senha_atual == senha_bd[0]:
+                try:
+                    if (nova_senha == c_nova_senha):
+                        cursor.execute("UPDATE banco_cadastroGP SET primeiro_nome = '"+primeiro_nome+"' WHERE user_email = '{}'".format(user_email))
+                        cursor.execute("UPDATE banco_cadastroGP SET segundo_nome = '"+segundo_nome+"' WHERE user_email = '{}'".format(user_email))
+                        cursor.execute("UPDATE banco_cadastroGP SET user_email = '"+user_email+"' WHERE user_email = '{}'".format(user_email))
+                        cursor.execute("UPDATE banco_cadastroGP SET senha = '"+nova_senha+"' WHERE user_email = '{}'".format(user_email))
+                        banco.commit() 
+                        banco.close()
+
+                        Win.messageBox("Usuario atualizado com sucesso")
+                        Win.tela_menu.email_edt2.setText('')
+                        Win.tela_menu.primeiro_nome_edt2.setText('')
+                        Win.tela_menu.segundo_nome_edt2.setText('')
+                        Win.tela_menu.senha_atual_edt.setText('')
+                        Win.tela_menu.senha_nova_edt.setText('')
+                        Win.tela_menu.senha_nova_confirma_edt.setText('')
 
                     else:
                         Win.messageBox("As senhas digitadas estão diferentes")
@@ -436,10 +478,9 @@ class Win():
                         Win.tela_menu.senha_atual_edt.setText('')
                         Win.tela_menu.senha_nova_edt.setText('')
                         Win.tela_menu.senha_nova_confirma_edt.setText('')
-                else:
-                    Win.messageBox("As senha atual está errada")
-            except:
-                Win.messageBox("Erro ao inserir os dados: "+str(erro)) 
+
+                except sqlite3.Error as erro:
+                    Win.messageBox("Erro ao inserir os dados: "+str(erro))
 
         if Win.tela_menu.confirm_cancelar.isChecked():
             Win.messageBox("Não foram efetuadas mudanças no seu perfil")
@@ -489,10 +530,7 @@ class Win():
             cursor = banco.cursor()
             cursor.execute("SELECT senha FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
             senha_bd = cursor.fetchone()
-            print("SENHA BD =" +senha_bd[0])
-            print("SENHA Atual =" +senha_atual)
-            print("SENHA Nova Senha =" +nova_senha)
-            print("SENHA Confirma nova senha =" +c_nova_senha)
+
             if senha_atual == senha_bd[0]:
                 try:
                     if (nova_senha == c_nova_senha):
@@ -507,6 +545,9 @@ class Win():
                         Win.tela_menu_adm.email_edt2.setText('')
                         Win.tela_menu_adm.primeiro_nome_edt2.setText('')
                         Win.tela_menu_adm.segundo_nome_edt2.setText('')
+                        Win.tela_menu_adm.senha_atual_edt.setText('')
+                        Win.tela_menu_adm.senha_nova_edt.setText('')
+                        Win.tela_menu_adm.senha_nova_confirma_edt.setText('')
 
                     else:
                         Win.messageBox("As senhas digitadas estão diferentes")
@@ -594,7 +635,7 @@ class Win():
     ## TELA MARCA PONTO ##
 
     tela_menu.registra_ponto_btn.clicked.connect(marcaPonto)
-    tela_menu_adm.registra_ponto_btn.clicked.connect(marcaPonto)
+    tela_menu_adm.registra_ponto_btn.clicked.connect(marcaPontoADM)
 
     ##PERFIL ATUALIZAR LOGADO ##
 
