@@ -64,4 +64,4 @@ def getMfaCodeAPI():
         return "Operação inválida"
 
 if __name__ == '__main__':
-    app.run(host='192.168.x.x', port=8080, debug=True)
+    app.run(host='192.168.x.x', port=8080, debug=True) #Alterar host para IP do servidor
