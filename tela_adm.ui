@@ -3159,7 +3159,7 @@ border-style: outset;
                  <item>
                   <widget class="QLabel" name="label_14">
                    <property name="text">
-                    <string>TextLabel</string>
+                    <string/>
                    </property>
                   </widget>
                  </item>
@@ -4197,7 +4197,7 @@ border-style: outset;
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_75">
                        <item>
-                        <widget class="QPushButton" name="pushButton">
+                        <widget class="QPushButton" name="fr_dia_btn">
                          <property name="text">
                           <string>Dia</string>
                          </property>
@@ -4216,7 +4216,7 @@ border-style: outset;
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_76">
                        <item>
-                        <widget class="QPushButton" name="pushButton_2">
+                        <widget class="QPushButton" name="fr_semana_btn">
                          <property name="text">
                           <string>Semana</string>
                          </property>
@@ -4235,7 +4235,7 @@ border-style: outset;
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_77">
                        <item>
-                        <widget class="QPushButton" name="pushButton_3">
+                        <widget class="QPushButton" name="fr_mes_btn">
                          <property name="text">
                           <string>Mês</string>
                          </property>
