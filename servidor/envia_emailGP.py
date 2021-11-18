@@ -11,5 +11,5 @@ def enviaEmailToken(token, email):
     server.starttls()
     server.ehlo()
     server.login(USER, PASSWORD)
-    msg = '''Sua senha está sendo reconfigurada, por favor, entre com o código abaixo\n\n\n\n'''+token
+    msg = '''Sua senha esta sendo reconfigurada, por favor, entre com o codigo abaixo\n\n\n\n'''+token
     server.sendmail(USER, email, msg.encode('utf-8'))
