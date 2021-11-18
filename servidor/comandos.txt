@@ -1,2 +1,5 @@
 Iniciar API:
-    gunicorn --bind 102.168.1.X:8080 wsgi:app
+    gunicorn --bind 192.168.1.X:8080 wsgi:app
+
+Curl API:
+    curl -H "Content-Type: application/json" -X POST -d '{"email":"renato.kobashigawa@fatec.sp.gov.br", "usrToken":"A97B00", "operacao":"1"}' http://192.168.1.18:8080/getMfaCode

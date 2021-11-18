@@ -32,6 +32,8 @@ import hashlib
 import threading
 import time
 import sys, os
+import requests
+from requests.structures import CaseInsensitiveDict
 
 
 ################################################################
@@ -282,6 +284,7 @@ class Win():
 
     def reset_confirm():
         Win.tela_resete_confirma.show()
+        
 
     def recupera_senha(user_email):
         banco = sqlite3.connect('banco_cadastroGP.db') 
@@ -290,13 +293,24 @@ class Win():
         user_emailVR = cursor.fetchone()
         banco.close()
         if not user_emailVR:
-            print("Chegou na condição de encontrar usuário no banco")
-            #Win.messageBox("Usuário não encontrado")
+            Win.messageBox("Usuário não encontrado")
             Win.tela_resete_confirma.close()
             Win.tela_login.show()
             return
         
         if user_email == user_emailVR[0]:
+            
+            #Gera o token a partir de um request HTTP e configura os headers e dados
+
+            url = "http://192.168.1.18:8080/getMfaCode"
+
+            headers = CaseInsensitiveDict()
+            headers["Content-Type"] = "application/json"
+
+            data = '{"email":"'+user_email+'", "usrToken":"", "operacao":"1"}'
+
+            requests.post(url, headers=headers, data=data)
+
             Win.tela_resete_confirma.close()
             Win.tela_resete_altera.show()
         else: 
@@ -314,6 +328,19 @@ class Win():
         senha = hashlib.sha256(Win.tela_resete_altera.user_password_edt.text().encode('utf-8')).hexdigest()
         c_senha = hashlib.sha256(Win.tela_resete_altera.user_password2_edt.text().encode('utf-8')).hexdigest()
 
+        #checka o token
+        url = "http://192.168.1.18:8080/getMfaCode"
+
+        headers = CaseInsensitiveDict()
+        headers["Content-Type"] = "application/json"
+
+        data = '{"email":"'+user_email+'", "usrToken":"'+codigo+'", "operacao":"0"}'
+
+        resposta = requests.post(url, headers=headers, data=data).text
+
+        if(resposta != "True"):
+            Win.messageBox("Token inválido.")
+            return
         
         if (senha == c_senha):
             try:

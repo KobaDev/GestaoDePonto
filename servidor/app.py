@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
 import time
-import os, binascii, sqlite3, datetime, inputFilter
+import os, binascii, sqlite3, datetime, inputFilter, envia_emailGP
 
 app = Flask(__name__)
 
@@ -61,7 +61,9 @@ def getMfaCodeAPI():
         banco.commit()
         banco.close()
 
-        return jsonify({'token':token})
+        envia_emailGP.enviaEmailToken(token, email)
+
+        return
     
     else:
         return "Operação inválida"

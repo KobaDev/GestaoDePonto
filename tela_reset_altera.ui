@@ -345,30 +345,6 @@ border-color: rgb(120, 120, 120);</string>
              <property name="bottomMargin">
               <number>0</number>
              </property>
-             <item>
-              <widget class="QPushButton" name="codigo_confirma_btn">
-               <property name="font">
-                <font>
-                 <family>Lucida Console</family>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
-               <property name="cursor">
-                <cursorShape>PointingHandCursor</cursorShape>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(152, 4, 39);
-color: rgb(255, 255, 255);
-border-radius: 10px;
-border-style: outset;
-border-width: 2px;
-border-color: rgb(120, 120, 120);</string>
-               </property>
-               <property name="text">
-                <string>Confirma</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
