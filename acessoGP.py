@@ -309,7 +309,10 @@ class Win():
 
             data = '{"email":"'+user_email+'", "usrToken":"", "operacao":"1"}'
 
-            requests.post(url, headers=headers, data=data)
+            resposta = requests.post(url, headers=headers, data=data).text
+
+            if resposta != "True":
+                Win.messageBox("Erro ao gerar token.")
 
             Win.tela_resete_confirma.close()
             Win.tela_resete_altera.show()

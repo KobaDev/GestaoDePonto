@@ -63,7 +63,7 @@ def getMfaCodeAPI():
 
         envia_emailGP.enviaEmailToken(token, email)
 
-        return
+        return "True"
     
     else:
         return "Operação inválida"
