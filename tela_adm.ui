@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Gestão de Ponto</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_55">
@@ -3091,6 +3091,9 @@ border-style: outset;
                       <property name="text">
                        <string/>
                       </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
                      </widget>
                     </item>
                     <item alignment="Qt::AlignHCenter">
@@ -3102,6 +3105,9 @@ border-style: outset;
                       </property>
                       <property name="text">
                        <string/>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
                       </property>
                      </widget>
                     </item>
@@ -3115,6 +3121,9 @@ border-style: outset;
                       <property name="text">
                        <string/>
                       </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
                      </widget>
                     </item>
                     <item alignment="Qt::AlignHCenter">
@@ -3126,6 +3135,9 @@ border-style: outset;
                       </property>
                       <property name="text">
                        <string/>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
                       </property>
                      </widget>
                     </item>

@@ -45,6 +45,10 @@ def curlDiaStr():
     url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
     return datetime.datetime.fromtimestamp(int(requests.get(url).text)).strftime('%d-%m-%Y')
 
+def curlDiaUnix():
+    url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
+    return int(requests.get(url).text)
+
 def curlDiaSemanaStr():
     url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
     weekday = datetime.datetime.fromtimestamp(int(requests.get(url).text)).weekday()

@@ -106,6 +106,7 @@ class Win():
 
     def marcaPonto():
         data = pega_horarioGP.curlDiaStr()
+        data_unix = pega_horarioGP.curlDiaUnix()
         hora = pega_horarioGP.curlSomenteHoraStr()
         utc = pega_horarioGP.verificarUTC(geolocGP.region())
         user_email = Win.tela_menu.lbl_email.text()
@@ -120,20 +121,38 @@ class Win():
         matricula = cursor.fetchone()
         banco.close()
 
+
+        #Verifica número excessivo de pontos
+        try:
+            banco = sqlite3.connect('banco_pontoGP.db')
+            cursor = banco.cursor()
+            cursor.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula[0]+"' ORDER BY data ASC")
+        except sqlite3.Error as erro:
+            Win.messageBox("Erro ao pesquisar os dados: "+str(erro))
+            return
+        pontos = cursor.fetchall()
+        qtde_pontos = len(pontos)
+
+        if qtde_pontos > 3:
+            Win.messageBox("Número excessivo de pontos.")
+            return
+
         try:
             banco = sqlite3.connect('banco_pontoGP.db') 
             cursor = banco.cursor()            
-            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text)")
-            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"')")
+            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text,data_unix text)")
+            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"','"+str(data_unix)+"')")
             banco.commit() 
             banco.close()
             Win.messageBox("Ponto registrado com sucesso.")
 
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao inserir os dados: "+str(erro))
+            return
     
     def marcaPontoADM():
         data = pega_horarioGP.curlDiaStr()
+        data_unix = pega_horarioGP.curlDiaUnix()
         hora = pega_horarioGP.curlSomenteHoraStr()
         utc = pega_horarioGP.verificarUTC(geolocGP.region())
         user_email = Win.tela_menu_adm.lbl_email.text()
@@ -147,17 +166,33 @@ class Win():
         cursor.execute("SELECT matricula FROM banco_cadastroGP WHERE user_email ='{}'".format(user_email))
         matricula = cursor.fetchone()
 
+        #Verifica número excessivo de pontos
+        try:
+            banco = sqlite3.connect('banco_pontoGP.db') 
+            cursor = banco.cursor()
+            cursor.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula[0]+"' ORDER BY data ASC")
+        except sqlite3.Error as erro:
+            Win.messageBox("Erro ao pesquisar os dados: "+str(erro))
+            return
+        pontos = cursor.fetchall()
+        qtde_pontos = len(pontos)
+
+        if qtde_pontos > 3:
+            Win.messageBox("Número excessivo de pontos.")
+            return
+
         try:
             banco = sqlite3.connect('banco_pontoGP.db') 
             cursor = banco.cursor()            
-            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text)")
-            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"')")
+            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text,data_unix text)")
+            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"','"+str(data_unix)+"')")
             banco.commit() 
             banco.close()
             Win.messageBox("Ponto registrado com sucesso.")
 
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao inserir os dados: "+str(erro))
+            return
 
 
     ######################################################################################
@@ -387,7 +422,7 @@ class Win():
         Win.tela_menu.stackedWidget.setCurrentIndex(3)
         Win.tela_menu_adm.stackedWidget.setCurrentIndex(3)
 
-    def user_marcaponto_pg4(user_email):
+    def user_marcaponto_pg4():
         Win.tela_menu.stackedWidget.setCurrentIndex(4)
         Win.tela_menu_adm.stackedWidget.setCurrentIndex(4)
 
@@ -396,6 +431,40 @@ class Win():
 
         Win.tela_menu_adm.lbl_dia.setText(pega_horarioGP.curlDiaSemanaStr()+", "+pega_horarioGP.curlDiaStr())
         Win.tela_menu_adm.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
+
+        matricula = Win.tela_menu.matricula_txt.text()[11:]+""
+        matricula_adm = Win.tela_menu_adm.matricula_txt.text()[11:]+""
+        data = pega_horarioGP.curlDiaStr()
+
+        banco = sqlite3.connect('banco_pontoGP.db') 
+        cursor = banco.cursor()
+        cursor_adm = banco.cursor()
+        try:
+            cursor.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula+"' ORDER BY data ASC")
+            cursor_adm.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula_adm+"' ORDER BY data ASC")
+        except sqlite3.Error as erro:
+                Win.messageBox("Erro ao pesquisar os dados: "+str(erro))
+
+        pontos = cursor.fetchall()
+        pontos_adm = cursor_adm.fetchall()
+        banco.close()
+
+        qtde_pontos = len(pontos)
+        qtde_pontos_adm = len(pontos_adm)
+
+        if qtde_pontos < 1: None
+        if qtde_pontos >= 1:    Win.tela_menu.lbl_entrada.setText("Ponto de entrada\n" + pontos[0][0])
+        if qtde_pontos > 1: Win.tela_menu.lbl_intervalo_inicio.setText("Saída p/ almoço:\n" + pontos[1][0])
+        if qtde_pontos > 2: Win.tela_menu.lbl_intervalo_retorno.setText("Retorno do almoço:\n" + pontos[2][0])
+        if qtde_pontos > 3: Win.tela_menu.lbl_saida.setText("Ponto de saída\n" + pontos[3][0])
+        if qtde_pontos > 4: Win.messageBox("Irregularidades no ponto de hoje, falar com o administrador")
+
+        if qtde_pontos_adm < 1: None
+        if qtde_pontos_adm >= 1:    Win.tela_menu_adm.lbl_entrada.setText("Ponto de entrada\n" + pontos_adm[0][0])
+        if qtde_pontos_adm > 1: Win.tela_menu_adm.lbl_intervalo_inicio.setText("Saída p/ almoço:\n" + pontos_adm[1][0])
+        if qtde_pontos_adm > 2: Win.tela_menu_adm.lbl_intervalo_retorno.setText("Retorno do almoço:\n" + pontos_adm[2][0])
+        if qtde_pontos_adm > 3: Win.tela_menu_adm.lbl_saida.setText("Ponto de saída\n" + pontos_adm[3][0])
+        if qtde_pontos_adm > 4: Win.messageBox("Irregularidades no ponto de hoje, falar com o administrador")
 
         threading.Thread(target=Win.wk.relogio).start()
 
