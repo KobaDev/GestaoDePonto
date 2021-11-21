@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1028</width>
-    <height>777</height>
+    <height>773</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -410,7 +410,7 @@ background-color: rgb(255, 255, 255);</string>
        <string notr="true">background-color: rgb(222, 222, 222);</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="main_pg">
        <property name="sizePolicy">
@@ -3528,7 +3528,7 @@ border-style: outset;
                         <number>100</number>
                        </property>
                        <item>
-                        <widget class="QLineEdit" name="incial_dd_edt">
+                        <widget class="QLineEdit" name="inicial_dd_edt">
                          <property name="minimumSize">
                           <size>
                            <width>100</width>
@@ -3554,7 +3554,7 @@ border-width: 2px;
 border-color: rgb(120, 120, 120);</string>
                          </property>
                          <property name="echoMode">
-                          <enum>QLineEdit::Password</enum>
+                          <enum>QLineEdit::Normal</enum>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3565,7 +3565,7 @@ border-color: rgb(120, 120, 120);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="incial_mm_edt">
+                        <widget class="QLineEdit" name="inicial_mm_edt">
                          <property name="maximumSize">
                           <size>
                            <width>100</width>
@@ -3593,7 +3593,7 @@ border-color: rgb(120, 120, 120);</string>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="incial_aaaa_edt">
+                        <widget class="QLineEdit" name="inicial_aaaa_edt">
                          <property name="minimumSize">
                           <size>
                            <width>100</width>
@@ -3948,6 +3948,15 @@ border-style: outset;
                       <layout class="QVBoxLayout" name="verticalLayout_63">
                        <item>
                         <widget class="QPushButton" name="fr_dia_btn">
+                         <property name="minimumSize">
+                          <size>
+                           <width>70</width>
+                           <height>50</height>
+                          </size>
+                         </property>
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
                          <property name="text">
                           <string>Dia</string>
                          </property>
@@ -3967,6 +3976,15 @@ border-style: outset;
                       <layout class="QVBoxLayout" name="verticalLayout_64">
                        <item>
                         <widget class="QPushButton" name="fr_semana_btn">
+                         <property name="minimumSize">
+                          <size>
+                           <width>70</width>
+                           <height>50</height>
+                          </size>
+                         </property>
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
                          <property name="text">
                           <string>Semana</string>
                          </property>
@@ -3986,6 +4004,15 @@ border-style: outset;
                       <layout class="QVBoxLayout" name="verticalLayout_65">
                        <item>
                         <widget class="QPushButton" name="fr_mes_btn">
+                         <property name="minimumSize">
+                          <size>
+                           <width>70</width>
+                           <height>50</height>
+                          </size>
+                         </property>
+                         <property name="cursor">
+                          <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
                          <property name="text">
                           <string>Mês</string>
                          </property>

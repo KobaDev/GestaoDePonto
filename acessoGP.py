@@ -31,6 +31,7 @@ from PyQt5.QtCore import pyqtSignal, QObject
 import hashlib
 import threading
 import time
+import datetime
 import sys, os
 import requests
 from requests.structures import CaseInsensitiveDict
@@ -39,8 +40,7 @@ from requests.structures import CaseInsensitiveDict
 ################################################################
 ## RECURSO INTERNOS CRIADOS PELOS ALUNOS
 ################################################################
-import pega_horarioGP
-import geolocGP
+import pega_horarioGP, geolocGP, gerarRelatorioGP
 import ui_tela_menu
 import ui_tela_adm
 
@@ -110,6 +110,7 @@ class Win():
         hora = pega_horarioGP.curlSomenteHoraStr()
         utc = pega_horarioGP.verificarUTC(geolocGP.region())
         user_email = Win.tela_menu.lbl_email.text()
+        justificativa = "OK"
 
         banco = sqlite3.connect('banco_cadastroGP.db') 
         cursor = banco.cursor()  
@@ -133,6 +134,11 @@ class Win():
         pontos = cursor.fetchall()
         qtde_pontos = len(pontos)
 
+        if qtde_pontos < 1: entrada = "Entrada"
+        if qtde_pontos == 1: entrada = "Saída almoço"
+        if qtde_pontos == 2: entrada = "Retorno almoço"
+        if qtde_pontos == 3: entrada = "Saída"
+
         if qtde_pontos > 3:
             Win.messageBox("Número excessivo de pontos.")
             return
@@ -140,8 +146,8 @@ class Win():
         try:
             banco = sqlite3.connect('banco_pontoGP.db') 
             cursor = banco.cursor()            
-            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text,data_unix text)")
-            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"','"+str(data_unix)+"')")
+            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text,data_unix text,entrada text,justificativa text)")
+            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"','"+str(data_unix)+"','"+entrada+"','"+justificativa+"')")
             banco.commit() 
             banco.close()
             Win.messageBox("Ponto registrado com sucesso.")
@@ -156,6 +162,7 @@ class Win():
         hora = pega_horarioGP.curlSomenteHoraStr()
         utc = pega_horarioGP.verificarUTC(geolocGP.region())
         user_email = Win.tela_menu_adm.lbl_email.text()
+        justificativa = "OK"
 
         banco = sqlite3.connect('banco_cadastroGP.db') 
         cursor = banco.cursor()  
@@ -177,15 +184,22 @@ class Win():
         pontos = cursor.fetchall()
         qtde_pontos = len(pontos)
 
+
+        if qtde_pontos < 1: entrada = "Entrada"
+        if qtde_pontos == 1: entrada = "Saída p/ Almoço"
+        if qtde_pontos == 2: entrada = "Retorno d/ Almoço"
+        if qtde_pontos == 3: entrada = "Saída"
+
         if qtde_pontos > 3:
             Win.messageBox("Número excessivo de pontos.")
             return
 
+
         try:
             banco = sqlite3.connect('banco_pontoGP.db') 
             cursor = banco.cursor()            
-            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text,data_unix text)")
-            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"','"+str(data_unix)+"')")
+            cursor.execute("CREATE TABLE IF NOT EXISTS banco_pontoGP (primeiro_nome text,segundo_nome text,matricula text,data text,hora text,utc text,data_unix text,entrada text,justificativa text)")
+            cursor.execute("INSERT INTO banco_pontoGP VALUES ('"+primeiro_nome[0]+"','"+segundo_nome[0]+"','"+matricula[0]+"','"+data+"','"+hora+"','"+utc+"','"+str(data_unix)+"','"+entrada+"','"+justificativa+"')")
             banco.commit() 
             banco.close()
             Win.messageBox("Ponto registrado com sucesso.")
@@ -193,6 +207,64 @@ class Win():
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao inserir os dados: "+str(erro))
             return
+    
+    def gerarRelatorio():
+        #Gera data inicial em formato unix
+        try:
+            data_inicial = datetime.date(\
+                int(Win.tela_menu.inicial_aaaa_edt.text())\
+                ,int(Win.tela_menu.inicial_mm_edt.text())\
+                ,int(Win.tela_menu.inicial_dd_edt.text())
+                )
+            data_inicial_unix = time.mktime(data_inicial.timetuple())
+
+            #Gera data final em formato unix
+            data_final = datetime.date(\
+                int(Win.tela_menu.final_aaaa_edt.text())\
+                ,int(Win.tela_menu.final_mm_edt.text())\
+                ,int(Win.tela_menu.final_dd_edt.text())
+                )
+            data_final_unix = time.mktime(data_final.timetuple())
+        except:
+            Win.messageBox("Data inválida.")
+            return
+
+        gerarRelatorioGP.gerarArquivo(Win.tela_menu.username_txt_2.text()[6:],
+        Win.tela_menu.matricula_txt_2.text()[11:],
+        str(data_inicial_unix)[:-2],
+        str(data_final_unix)[:-2])
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
+
+    def gerarRelatorioAdm():
+        try:
+            #Gera data inicial em formato unix - ADM
+            data_inicial_adm = datetime.date(\
+                int(Win.tela_menu_adm.inicial_aaaa_edt.text())\
+                ,int(Win.tela_menu_adm.inicial_mm_edt.text())\
+                ,int(Win.tela_menu_adm.inicial_dd_edt.text())
+                )
+            data_inicial_unix_adm = time.mktime(data_inicial_adm.timetuple())
+
+            #Gera data final em formato unix - ADM
+            data_final_adm = datetime.date(\
+                int(Win.tela_menu_adm.final_aaaa_edt.text())\
+                ,int(Win.tela_menu_adm.final_mm_edt.text())\
+                ,int(Win.tela_menu_adm.final_dd_edt.text())\
+                )
+            data_final_unix_adm = time.mktime(data_final_adm.timetuple())
+        except:
+            Win.messageBox("Data inválida.")
+            return
+
+        gerarRelatorioGP.gerarArquivo(Win.tela_menu_adm.username_txt_2.text()[6:],
+        Win.tela_menu_adm.matricula_txt_2.text()[11:],
+        str(data_inicial_unix_adm),
+        str(data_final_unix_adm))
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
 
 
     ######################################################################################
@@ -736,6 +808,10 @@ class Win():
 
     ##FUNCIONÁRIOS ATUALIZAR - ADM##
     tela_menu_adm.funcionario_cad_btn.clicked.connect(complementa_cad_defineADM)
+
+    ##TELA DE GERAR RELATÓRIO
+    tela_menu.gera_fr_btn.clicked.connect(gerarRelatorio)
+    tela_menu_adm.gera_fr_btn.clicked.connect(gerarRelatorioAdm)
 
     ## CHAMADA PROGRAM - TELA 01 ##
 
