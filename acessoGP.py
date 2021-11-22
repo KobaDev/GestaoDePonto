@@ -287,8 +287,8 @@ class Win():
 
         gerarRelatorioGP.gerarArquivo(Win.tela_menu_adm.username_txt_2.text()[6:],
         Win.tela_menu_adm.matricula_txt_2.text()[11:],
-        str(data_inicial_unix_adm),
-        str(data_final_unix_adm),
+        str(data_inicial_unix_adm)[:-2],
+        str(data_final_unix_adm)[:-2],
         mesma_data)
 
         Win.messageBox("Relatório gerado com sucesso.")
@@ -440,6 +440,11 @@ class Win():
                 banco = sqlite3.connect('banco_cadastroGP.db') 
                 cursor = banco.cursor()
                 cursor.execute("CREATE TABLE IF NOT EXISTS banco_cadastroGP (primeiro_nome text,segundo_nome text,user_email text,senha text, admin integer,cargo text,matricula text)")
+                cursor.execute("SELECT matricula FROM banco_cadastroGP ORDER BY matricula DESC")
+
+                matricula_str = int(cursor.fetchone()[0])+1
+                matricula = str(matricula_str).rjust(4, '0')
+
                 cursor.execute("INSERT INTO banco_cadastroGP VALUES ('"+primeiro_nome+"','"+segundo_nome+"','"+user_email+"','"+senha+"','"+str(admin)+"','"+cargo+"','"+matricula+"')")
 
                 banco.commit() 
@@ -867,6 +872,7 @@ class Win():
     tela_login.cadastra_btn.clicked.connect(chama_cad)                               # Chama tela de Cadastro;
     tela_login.user_password_edt.setEchoMode(QtWidgets.QLineEdit.Password)           # ;
     tela_login.recupera_btn.clicked.connect(reset_confirm)                           # Chama confirmação de matrícula p/ Reset;
+    tela_login.first_acess_btn.clicked.connect(chama_cad)
 
     ## BOTÕES DA TOOLBAR ##
     tela_menu.home_btn.clicked.connect(user_main_pg)
