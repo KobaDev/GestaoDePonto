@@ -1,0 +1,10 @@
+Nome do Funcionário: o funcionário
+
+Matrícula: 0005
+
+Horario              Pontos               Marcação             Justificativa
+
+- 21-11-2021         - 16:29:49           - Entrada            - Problemas com a máquina.
+- 21-11-2021         - 16:29:52           - Saída almoço       - OK             
+- 21-11-2021         - 17:30:01           - Retorno almoço     - OK             
+- 21-11-2021         - 17:37:32           - Saída              - OK             

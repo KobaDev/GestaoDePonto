@@ -532,7 +532,7 @@ border: none;</string>
        <string notr="true">background-color: rgb(222, 222, 222);</string>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="main_pg">
        <property name="sizePolicy">
@@ -1141,7 +1141,9 @@ border-style: outset;
                    <property name="font">
                     <font>
                      <family>Lucida Console</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -1151,11 +1153,19 @@ border-style: outset;
                  </item>
                  <item row="3" column="1">
                   <widget class="QLabel" name="lbl_email">
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="layoutDirection">
+                    <enum>Qt::RightToLeft</enum>
+                   </property>
                    <property name="text">
                     <string>TextLabel</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -1164,7 +1174,9 @@ border-style: outset;
                    <property name="font">
                     <font>
                      <family>Lucida Console</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -1174,11 +1186,19 @@ border-style: outset;
                  </item>
                  <item row="2" column="1">
                   <widget class="QLabel" name="lbl_matricula">
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="layoutDirection">
+                    <enum>Qt::RightToLeft</enum>
+                   </property>
                    <property name="text">
                     <string>TextLabel</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -1187,7 +1207,9 @@ border-style: outset;
                    <property name="font">
                     <font>
                      <family>Lucida Console</family>
-                     <pointsize>10</pointsize>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -1197,16 +1219,11 @@ border-style: outset;
                  </item>
                  <item row="1" column="1">
                   <widget class="QLabel" name="lbl_cargo">
-                   <property name="text">
-                    <string>TextLabel</string>
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
                    </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLabel" name="lbl_nome">
                    <property name="layoutDirection">
                     <enum>Qt::RightToLeft</enum>
                    </property>
@@ -1214,7 +1231,25 @@ border-style: outset;
                     <string>TextLabel</string>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="lbl_nome">
+                   <property name="font">
+                    <font>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="layoutDirection">
+                    <enum>Qt::RightToLeft</enum>
+                   </property>
+                   <property name="text">
+                    <string>TextLabel</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -1223,9 +1258,9 @@ border-style: outset;
                    <property name="font">
                     <font>
                      <family>Lucida Console</family>
-                     <pointsize>10</pointsize>
-                     <weight>50</weight>
-                     <bold>false</bold>
+                     <pointsize>12</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
                     </font>
                    </property>
                    <property name="text">
@@ -4222,6 +4257,10 @@ border-style: outset;
                          <property name="cursor">
                           <cursorShape>PointingHandCursor</cursorShape>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">background-color: rgb(77, 80, 127);
+color: white;</string>
+                         </property>
                          <property name="text">
                           <string>Dia</string>
                          </property>
@@ -4250,6 +4289,10 @@ border-style: outset;
                          <property name="cursor">
                           <cursorShape>PointingHandCursor</cursorShape>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">background-color: rgb(77, 80, 127);
+color: white;</string>
+                         </property>
                          <property name="text">
                           <string>Semana</string>
                          </property>
@@ -4277,6 +4320,10 @@ border-style: outset;
                          </property>
                          <property name="cursor">
                           <cursorShape>PointingHandCursor</cursorShape>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">background-color: rgb(77, 80, 127);
+color: white;</string>
                          </property>
                          <property name="text">
                           <string>Mês</string>

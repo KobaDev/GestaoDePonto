@@ -1,0 +1,9 @@
+Nome do Funcionário: Jadson Santos
+
+Matrícula: 0001
+
+Horario              Pontos               Marcação             Justificativa
+
+- 21-11-2021         - 17:31:47           - Entrada            - OK             
+- 21-11-2021         - 17:32:33           - Saída almoço       - OK             
+- 21-11-2021         - 17:38:00           - Retorno almoço     - OK             

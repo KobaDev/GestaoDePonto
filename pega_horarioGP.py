@@ -49,6 +49,18 @@ def curlDiaUnix():
     url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
     return int(requests.get(url).text)
 
+def curlDiaSemana():
+    url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
+    weekday = datetime.datetime.fromtimestamp(int(requests.get(url).text)).weekday()
+    if weekday == 6: #Para adaptar para os padrões brasileiros, o domingo será zero, e o resto dos dias receberão +1
+        return 0
+    else:
+        return weekday+1
+
+def curlMes():
+    url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
+    return datetime.datetime.fromtimestamp(int(requests.get(url).text)).strftime('%m')
+
 def curlDiaSemanaStr():
     url = 'http://www.horalegalbrasil.mct.on.br/RelogioServidor.php'
     weekday = datetime.datetime.fromtimestamp(int(requests.get(url).text)).weekday()

@@ -1,0 +1,10 @@
+Nome do Funcionário: Bianca Mancini
+
+Matrícula: 0003
+
+Horario              Pontos               Marcação             Justificativa
+
+- 21-11-2021         - 17:28:57           - Entrada            - OK             
+- 21-11-2021         - 17:29:22           - Saída almoço       - OK             
+- 21-11-2021         - 17:29:30           - Retorno almoço     - OK             
+- 21-11-2021         - 17:29:33           - Saída              - OK             

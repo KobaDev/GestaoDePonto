@@ -64,13 +64,24 @@ class Worker(QObject):
 
     def attData(self):
         Win.tela_menu.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
-        Win.tela_menu_adm.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
 
+    def attDataAdm(self):
+        Win.tela_menu_adm.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
 
     def relogio(self):
         self.updateDate.connect(self.attData)
         while(True):
             time.sleep(1)
+            if Win.tela_menu.stackedWidget.currentIndex() != 4:
+                return
+            self.updateDate.emit()
+
+    def relogioAdm(self):
+        self.updateDate.connect(self.attDataAdm)
+        while(True):
+            time.sleep(1)
+            if Win.tela_menu_adm.stackedWidget.currentIndex() != 4:
+                return
             self.updateDate.emit()
 
 class Win():
@@ -98,6 +109,8 @@ class Win():
     
     def __init__(self):
             super(Win, self).__init__()
+
+            self.actionExit.triggered.connect(self.close)
           
 
     def messageBox(err):
@@ -262,6 +275,51 @@ class Win():
         Win.tela_menu_adm.matricula_txt_2.text()[11:],
         str(data_inicial_unix_adm),
         str(data_final_unix_adm))
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
+    
+    
+    def gerarRelatorioDia():
+        gerarRelatorioGP.gerarArquivoDia(Win.tela_menu_adm.username_txt_2.text()[6:],
+        Win.tela_menu.matricula_txt_2.text()[11:])
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
+    
+    def gerarRelatorioSemana():
+        gerarRelatorioGP.gerarArquivoSemana(Win.tela_menu_adm.username_txt_2.text()[6:],
+        Win.tela_menu.matricula_txt_2.text()[11:])
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
+    
+
+    def gerarRelatorioMes():
+        gerarRelatorioGP.gerarArquivoMes(Win.tela_menu_adm.username_txt_2.text()[6:],
+        Win.tela_menu.matricula_txt_2.text()[11:])
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
+    
+    def gerarRelatorioDiaADM():
+        gerarRelatorioGP.gerarArquivoDia(Win.tela_menu_adm.username_txt_2.text()[6:],
+        Win.tela_menu_adm.matricula_txt_2.text()[11:])
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
+    
+    def gerarRelatorioSemanaADM():
+        gerarRelatorioGP.gerarArquivoSemana(Win.tela_menu_adm.username_txt_2.text()[6:],
+        Win.tela_menu_adm.matricula_txt_2.text()[11:])
+
+        Win.messageBox("Relatório gerado com sucesso.")
+        return
+    
+
+    def gerarRelatorioMesADM():
+        gerarRelatorioGP.gerarArquivoMes(Win.tela_menu_adm.username_txt_2.text()[6:],
+        Win.tela_menu_adm.matricula_txt_2.text()[11:])
 
         Win.messageBox("Relatório gerado com sucesso.")
         return
@@ -475,54 +533,44 @@ class Win():
             Win.tela_resete_altera.user_password2_edt.setText('')
     
     ##################################
-    # Telas | MENU - CONSTRUIINDO
+    # Telas | MENU - CONSTRUINDO
     ##################################
 
     def user_main_pg():
         Win.tela_menu.stackedWidget.setCurrentIndex(0)
-        Win.tela_menu_adm.stackedWidget.setCurrentIndex(0)
 
     def user_data_view():
         Win.tela_menu.stackedWidget.setCurrentIndex(1)
-        Win.tela_menu_adm.stackedWidget.setCurrentIndex(1)
 
     def user_data_change_pg1():
         Win.tela_menu.stackedWidget.setCurrentIndex(2)
-        Win.tela_menu_adm.stackedWidget.setCurrentIndex(2)
 
     def user_data_change_pg2():
         Win.tela_menu.stackedWidget.setCurrentIndex(3)
-        Win.tela_menu_adm.stackedWidget.setCurrentIndex(3)
 
     def user_marcaponto_pg4():
+        #Coletor de variaveis
+        coletor = []
+
         Win.tela_menu.stackedWidget.setCurrentIndex(4)
-        Win.tela_menu_adm.stackedWidget.setCurrentIndex(4)
 
         Win.tela_menu.lbl_dia.setText(pega_horarioGP.curlDiaSemanaStr()+", "+pega_horarioGP.curlDiaStr())
         Win.tela_menu.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
 
-        Win.tela_menu_adm.lbl_dia.setText(pega_horarioGP.curlDiaSemanaStr()+", "+pega_horarioGP.curlDiaStr())
-        Win.tela_menu_adm.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
-
         matricula = Win.tela_menu.matricula_txt.text()[11:]+""
-        matricula_adm = Win.tela_menu_adm.matricula_txt.text()[11:]+""
         data = pega_horarioGP.curlDiaStr()
 
         banco = sqlite3.connect('banco_pontoGP.db') 
         cursor = banco.cursor()
-        cursor_adm = banco.cursor()
         try:
             cursor.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula+"' ORDER BY data ASC")
-            cursor_adm.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula_adm+"' ORDER BY data ASC")
         except sqlite3.Error as erro:
                 Win.messageBox("Erro ao pesquisar os dados: "+str(erro))
 
         pontos = cursor.fetchall()
-        pontos_adm = cursor_adm.fetchall()
         banco.close()
 
         qtde_pontos = len(pontos)
-        qtde_pontos_adm = len(pontos_adm)
 
         if qtde_pontos < 1: None
         if qtde_pontos >= 1:    Win.tela_menu.lbl_entrada.setText("Ponto de entrada\n" + pontos[0][0])
@@ -531,6 +579,59 @@ class Win():
         if qtde_pontos > 3: Win.tela_menu.lbl_saida.setText("Ponto de saída\n" + pontos[3][0])
         if qtde_pontos > 4: Win.messageBox("Irregularidades no ponto de hoje, falar com o administrador")
 
+        coletor.append("matricula")
+        coletor.append("data")
+        coletor.append("banco")
+        coletor.append("cursor")
+        coletor.append("pontos")
+        coletor.append("qtde_pontos")
+
+        for var in coletor:
+            del var
+
+        threading.Thread(target=Win.wk.relogio).start()
+
+    def relatorio_fr_pg():
+        Win.tela_menu.stackedWidget.setCurrentIndex(5)
+
+    ##################################
+    # Telas | MENU ADM - CONSTRUINDO
+    ##################################
+
+    def user_main_pg_adm():
+        Win.tela_menu_adm.stackedWidget.setCurrentIndex(0)
+
+    def user_data_view_adm():
+        Win.tela_menu_adm.stackedWidget.setCurrentIndex(1)
+
+    def user_data_change_pg1_adm():
+        Win.tela_menu_adm.stackedWidget.setCurrentIndex(2)
+
+    def user_data_change_pg2_adm():
+        Win.tela_menu_adm.stackedWidget.setCurrentIndex(3)
+
+    def user_marcaponto_pg4_adm():
+        #Coletor de variaveis
+        coletor = []
+
+        Win.tela_menu_adm.stackedWidget.setCurrentIndex(4)
+
+        Win.tela_menu_adm.lbl_dia.setText(pega_horarioGP.curlDiaSemanaStr()+", "+pega_horarioGP.curlDiaStr())
+        Win.tela_menu_adm.lbl_data.setText(pega_horarioGP.curlSomenteHoraStr())
+
+        matricula_adm = Win.tela_menu_adm.matricula_txt.text()[11:]+""
+        data = pega_horarioGP.curlDiaStr()
+
+        banco = sqlite3.connect('banco_pontoGP.db') 
+        cursor_adm = banco.cursor()
+        try:
+            cursor_adm.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula_adm+"' ORDER BY data ASC")
+        except sqlite3.Error as erro:
+                Win.messageBox("Erro ao pesquisar os dados: "+str(erro))
+        pontos_adm = cursor_adm.fetchall()
+        banco.close()
+        qtde_pontos_adm = len(pontos_adm)
+
         if qtde_pontos_adm < 1: None
         if qtde_pontos_adm >= 1:    Win.tela_menu_adm.lbl_entrada.setText("Ponto de entrada\n" + pontos_adm[0][0])
         if qtde_pontos_adm > 1: Win.tela_menu_adm.lbl_intervalo_inicio.setText("Saída p/ almoço:\n" + pontos_adm[1][0])
@@ -538,14 +639,27 @@ class Win():
         if qtde_pontos_adm > 3: Win.tela_menu_adm.lbl_saida.setText("Ponto de saída\n" + pontos_adm[3][0])
         if qtde_pontos_adm > 4: Win.messageBox("Irregularidades no ponto de hoje, falar com o administrador")
 
-        threading.Thread(target=Win.wk.relogio).start()
+        coletor.append("matricula_adm")
+        coletor.append("data")
+        coletor.append("banco")
+        coletor.append("cursor_adm")
+        coletor.append("pontos_adm")
+        coletor.append("qtde_pontos_adm")
 
-    def relatorio_fr_pg():
-        Win.tela_menu.stackedWidget.setCurrentIndex(5)
+        for var in coletor:
+            del var
+
+        threading.Thread(target=Win.wk.relogioAdm).start()
+
+    def relatorio_fr_pg_adm():
         Win.tela_menu_adm.stackedWidget.setCurrentIndex(5)
     
-    def funcionarios_cad_pg():
+    def funcionarios_cad_pg_adm():
         Win.tela_menu_adm.stackedWidget.setCurrentIndex(6)
+
+    ##################################
+    # FIM Telas | MENU ADM - CONSTRUINDO
+    ##################################
     
     def sair():
         os._exit(1)
@@ -746,12 +860,12 @@ class Win():
     tela_menu.marcaponto_btn1.clicked.connect(user_marcaponto_pg4)
     tela_menu.relatorio_btn1.clicked.connect(relatorio_fr_pg)
 
-    tela_menu_adm.home_btn.clicked.connect(user_main_pg)
+    tela_menu_adm.home_btn.clicked.connect(user_main_pg_adm)
     tela_menu_adm.sair_btn.clicked.connect(sair)
-    tela_menu_adm.meus_dados1_btn.clicked.connect(user_data_view)
-    tela_menu_adm.marcaponto_btn1.clicked.connect(user_marcaponto_pg4)
-    tela_menu_adm.relatorio_btn1.clicked.connect(relatorio_fr_pg)
-    tela_menu_adm.funcionarios_btn.clicked.connect(funcionarios_cad_pg)
+    tela_menu_adm.meus_dados1_btn.clicked.connect(user_data_view_adm)
+    tela_menu_adm.marcaponto_btn1.clicked.connect(user_marcaponto_pg4_adm)
+    tela_menu_adm.relatorio_btn1.clicked.connect(relatorio_fr_pg_adm)
+    tela_menu_adm.funcionarios_btn.clicked.connect(funcionarios_cad_pg_adm)
 
 
     ## PAGINA DE DADOS ##
@@ -759,9 +873,9 @@ class Win():
     tela_menu.data_edit_btn.clicked.connect(user_data_change_pg1)
     tela_menu.data_alterar_senha_btn.clicked.connect(user_data_change_pg2)
 
-    tela_menu_adm.meus_dados2_btn.clicked.connect(user_data_view)
-    tela_menu_adm.data_edit_btn.clicked.connect(user_data_change_pg1)
-    tela_menu_adm.data_alterar_senha_btn.clicked.connect(user_data_change_pg2)
+    tela_menu_adm.meus_dados2_btn.clicked.connect(user_data_view_adm)
+    tela_menu_adm.data_edit_btn.clicked.connect(user_data_change_pg1_adm)
+    tela_menu_adm.data_alterar_senha_btn.clicked.connect(user_data_change_pg2_adm)
 
 
 
@@ -771,16 +885,16 @@ class Win():
     ## PAGINA DE MARCA PONTO ##
 
     tela_menu.marcaponto_btn2.clicked.connect(user_marcaponto_pg4)
-    tela_menu_adm.marcaponto_btn2.clicked.connect(user_marcaponto_pg4)
+    tela_menu_adm.marcaponto_btn2.clicked.connect(user_marcaponto_pg4_adm)
 
     ## PAGINA DE RELATORIO ##
 
     tela_menu.relatorio_btn2.clicked.connect(relatorio_fr_pg)
-    tela_menu_adm.relatorio_btn2.clicked.connect(relatorio_fr_pg)
+    tela_menu_adm.relatorio_btn2.clicked.connect(relatorio_fr_pg_adm)
 
     ## PAGINA DE FUNCIONÁRIOS (AMD) ##
 
-    tela_menu_adm.funcionarios_btn2.clicked.connect(funcionarios_cad_pg)
+    tela_menu_adm.funcionarios_btn2.clicked.connect(funcionarios_cad_pg_adm)
 
     ## TELA RESET ##
 
@@ -812,6 +926,14 @@ class Win():
     ##TELA DE GERAR RELATÓRIO
     tela_menu.gera_fr_btn.clicked.connect(gerarRelatorio)
     tela_menu_adm.gera_fr_btn.clicked.connect(gerarRelatorioAdm)
+
+    tela_menu.fr_dia_btn.clicked.connect(gerarRelatorioDia)
+    tela_menu.fr_semana_btn.clicked.connect(gerarRelatorioSemana)
+    tela_menu.fr_mes_btn.clicked.connect(gerarRelatorioMes)
+
+    tela_menu_adm.fr_dia_btn.clicked.connect(gerarRelatorioDiaADM)
+    tela_menu_adm.fr_semana_btn.clicked.connect(gerarRelatorioSemanaADM)
+    tela_menu_adm.fr_mes_btn.clicked.connect(gerarRelatorioMesADM)
 
     ## CHAMADA PROGRAM - TELA 01 ##
 

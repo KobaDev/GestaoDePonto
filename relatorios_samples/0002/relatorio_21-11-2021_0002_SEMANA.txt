@@ -1,0 +1,9 @@
+Nome do Funcionário: Marcelo Santana
+
+Matrícula: 0002
+
+Horario              Pontos               Marcação             Justificativa
+
+- 14-11-2021         - 17:38:00           - Entrada            - OK             
+- 17-11-2021         - 17:38:00           - Entrada            - OK             
+- 20-11-2021         - 17:38:00           - Entrada            - OK             
