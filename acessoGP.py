@@ -878,10 +878,6 @@ class Win():
     tela_menu_adm.data_alterar_senha_btn.clicked.connect(user_data_change_pg2_adm)
 
 
-
-    #ui.data_salvar_btn1.clicked.connect(main_pg)
-    #ui.data_salvar_btn2.clicked.connect(main_pg)
-
     ## PAGINA DE MARCA PONTO ##
 
     tela_menu.marcaponto_btn2.clicked.connect(user_marcaponto_pg4)
