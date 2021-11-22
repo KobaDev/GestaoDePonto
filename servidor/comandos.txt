@@ -5,5 +5,5 @@ Curl API:
     curl -H "Content-Type: application/json" -X POST -d '{"email":"renato.kobashigawa@fatec.sp.gov.br", "usrToken":"A97B00", "operacao":"1"}' http://192.168.1.18:8080/getMfaCode
 
 Variáveis de ambiente (executar na mesma aba onde se inicia a API):
-    export $API_USER="emaildeexemplo@gmail.com"
-    export $API_PASSWORD="senhadeexemplo123"
+    export API_USER="emaildeexemplo@gmail.com"
+    export API_PASSWORD="senhadeexemplo123"

@@ -1,7 +1,7 @@
 import datetime, pega_horarioGP, sqlite3, time
 from tkinter.filedialog import askdirectory
 
-def gerarArquivo(nome, matricula, data_inicial_unix, data_final_unix):
+def gerarArquivo(nome, matricula, data_inicial_unix, data_final_unix, mesma_data):
     path = askdirectory(title='Salvar como...') #Abre uma janela para a escolha do diretório
 
     conteudo = [
@@ -10,14 +10,22 @@ def gerarArquivo(nome, matricula, data_inicial_unix, data_final_unix):
     "Horario              Pontos               Marcação             Justificativa".ljust(60),
     ""]
 
+    data_str = datetime.datetime.fromtimestamp(int(data_inicial_unix)).strftime('%d-%m-%Y')
+
     banco = sqlite3.connect('banco_pontoGP.db') 
     cursor = banco.cursor()
     try:
-        cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data_unix BETWEEN "+data_inicial_unix+" AND "+data_final_unix+" AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
+        if mesma_data == True:
+            cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data == '"+data_str+"' AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
+            print("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data == '"+data_str+"' AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
+        else:
+            cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data_unix BETWEEN "+data_inicial_unix+" AND "+data_final_unix+" AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
+            print("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data_unix BETWEEN "+data_inicial_unix+" AND "+data_final_unix+" AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
     except sqlite3.Error as erro:
         print("Erro ao pesquisar os dados: "+str(erro))
 
     pontos = cursor.fetchall()
+    print(pontos)
     banco.close()
 
     for x in range(0, len(pontos)):

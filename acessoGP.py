@@ -224,57 +224,72 @@ class Win():
     def gerarRelatorio():
         #Gera data inicial em formato unix
         try:
-            data_inicial = datetime.date(\
+            data_inicial_str = [
                 int(Win.tela_menu.inicial_aaaa_edt.text())\
                 ,int(Win.tela_menu.inicial_mm_edt.text())\
-                ,int(Win.tela_menu.inicial_dd_edt.text())
-                )
+                ,int(Win.tela_menu.inicial_dd_edt.text())]
+            
+            data_final_str = [
+                int(Win.tela_menu.final_aaaa_edt.text())\
+                ,int(Win.tela_menu.final_mm_edt.text())\
+                ,int(Win.tela_menu.final_dd_edt.text())]
+
+            #Gera data inicial em formato unix
+            data_inicial = datetime.date(data_inicial_str[0], data_inicial_str[1], data_inicial_str[2])
             data_inicial_unix = time.mktime(data_inicial.timetuple())
 
             #Gera data final em formato unix
-            data_final = datetime.date(\
-                int(Win.tela_menu.final_aaaa_edt.text())\
-                ,int(Win.tela_menu.final_mm_edt.text())\
-                ,int(Win.tela_menu.final_dd_edt.text())
-                )
+            data_final = datetime.datetime(data_final_str[0], data_final_str[1], data_final_str[2], 23, 59, 59)
             data_final_unix = time.mktime(data_final.timetuple())
         except:
             Win.messageBox("Data inválida.")
             return
+        
+        mesma_data = False
+        if data_inicial_str == data_final_str:
+            mesma_data = True
 
         gerarRelatorioGP.gerarArquivo(Win.tela_menu.username_txt_2.text()[6:],
         Win.tela_menu.matricula_txt_2.text()[11:],
         str(data_inicial_unix)[:-2],
-        str(data_final_unix)[:-2])
+        str(data_final_unix)[:-2],
+        mesma_data)
 
         Win.messageBox("Relatório gerado com sucesso.")
         return
 
     def gerarRelatorioAdm():
         try:
-            #Gera data inicial em formato unix - ADM
-            data_inicial_adm = datetime.date(\
+            data_inicial_adm_str = [
                 int(Win.tela_menu_adm.inicial_aaaa_edt.text())\
                 ,int(Win.tela_menu_adm.inicial_mm_edt.text())\
-                ,int(Win.tela_menu_adm.inicial_dd_edt.text())
-                )
+                ,int(Win.tela_menu_adm.inicial_dd_edt.text())]
+            
+            data_final_adm_str = [
+                int(Win.tela_menu_adm.final_aaaa_edt.text())\
+                ,int(Win.tela_menu_adm.final_mm_edt.text())\
+                ,int(Win.tela_menu_adm.final_dd_edt.text())]
+
+            #Gera data inicial em formato unix - ADM
+            data_inicial_adm = datetime.date(data_inicial_adm_str[0], data_inicial_adm_str[1], data_inicial_adm_str[2])
             data_inicial_unix_adm = time.mktime(data_inicial_adm.timetuple())
 
             #Gera data final em formato unix - ADM
-            data_final_adm = datetime.date(\
-                int(Win.tela_menu_adm.final_aaaa_edt.text())\
-                ,int(Win.tela_menu_adm.final_mm_edt.text())\
-                ,int(Win.tela_menu_adm.final_dd_edt.text())\
-                )
+            data_final_adm = datetime.datetime(data_final_adm_str[0], data_final_adm_str[1], data_final_adm_str[2], 23, 59, 59)
             data_final_unix_adm = time.mktime(data_final_adm.timetuple())
         except:
             Win.messageBox("Data inválida.")
             return
+        
+        mesma_data = False
+        if data_inicial_adm_str == data_final_adm_str:
+            mesma_data = True
 
         gerarRelatorioGP.gerarArquivo(Win.tela_menu_adm.username_txt_2.text()[6:],
         Win.tela_menu_adm.matricula_txt_2.text()[11:],
         str(data_inicial_unix_adm),
-        str(data_final_unix_adm))
+        str(data_final_unix_adm),
+        mesma_data)
 
         Win.messageBox("Relatório gerado com sucesso.")
         return
