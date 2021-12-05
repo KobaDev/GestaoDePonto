@@ -118,6 +118,7 @@ class Win():
             Win.tela_messageBox.show()
 
     def marcaPonto():
+        Win.tela_menu.registra_ponto_btn.setDisabled(True)
         data = pega_horarioGP.curlDiaStr()
         data_unix = pega_horarioGP.curlDiaUnix()
         hora = pega_horarioGP.curlSomenteHoraStr()
@@ -143,6 +144,7 @@ class Win():
             cursor.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula[0]+"' ORDER BY data ASC")
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao pesquisar os dados: "+str(erro))
+            Win.tela_menu.registra_ponto_btn.setDisabled(False)
             return
         pontos = cursor.fetchall()
         qtde_pontos = len(pontos)
@@ -154,6 +156,7 @@ class Win():
 
         if qtde_pontos > 3:
             Win.messageBox("Número excessivo de pontos.")
+            Win.tela_menu.registra_ponto_btn.setDisabled(False)
             return
 
         try:
@@ -167,9 +170,14 @@ class Win():
 
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao inserir os dados: "+str(erro))
+            Win.tela_menu.registra_ponto_btn.setDisabled(False)
             return
+
+        Win.tela_menu.registra_ponto_btn.setDisabled(False)
+        Win.tela_menu.marcaponto_btn1.click()
     
     def marcaPontoADM():
+        Win.tela_menu_adm.registra_ponto_btn.setDisabled(True)
         data = pega_horarioGP.curlDiaStr()
         data_unix = pega_horarioGP.curlDiaUnix()
         hora = pega_horarioGP.curlSomenteHoraStr()
@@ -193,6 +201,7 @@ class Win():
             cursor.execute("SELECT hora FROM banco_pontoGP WHERE data = '"+data+"' AND matricula = '"+matricula[0]+"' ORDER BY data ASC")
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao pesquisar os dados: "+str(erro))
+            Win.tela_menu_adm.registra_ponto_btn.setDisabled(False)
             return
         pontos = cursor.fetchall()
         qtde_pontos = len(pontos)
@@ -205,6 +214,7 @@ class Win():
 
         if qtde_pontos > 3:
             Win.messageBox("Número excessivo de pontos.")
+            Win.tela_menu_adm.registra_ponto_btn.setDisabled(False)
             return
 
 
@@ -219,7 +229,12 @@ class Win():
 
         except sqlite3.Error as erro:
             Win.messageBox("Erro ao inserir os dados: "+str(erro))
+            Win.tela_menu_adm.registra_ponto_btn.setDisabled(False)
             return
+
+
+        Win.tela_menu_adm.registra_ponto_btn.setDisabled(False)
+        Win.tela_menu_adm.marcaponto_btn1.click()
     
     def gerarRelatorio():
         #Gera data inicial em formato unix
