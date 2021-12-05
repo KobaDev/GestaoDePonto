@@ -134,7 +134,7 @@ background-color: rgb(255, 255, 255);</string>
                 <string notr="true">color: rgb(255, 255, 255);</string>
                </property>
                <property name="text">
-                <string>Seja Bem vindo!</string>
+                <string>Seja Bem vindo(a),</string>
                </property>
               </widget>
              </item>

@@ -249,13 +249,16 @@ class Win():
         if data_inicial_str == data_final_str:
             mesma_data = True
 
-        gerarRelatorioGP.gerarArquivo(Win.tela_menu.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivo(Win.tela_menu.label_6.text(),
         Win.tela_menu.matricula_txt_2.text()[11:],
         str(data_inicial_unix)[:-2],
         str(data_final_unix)[:-2],
         mesma_data)
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+relatorio)
+
         return
 
     def gerarRelatorioAdm():
@@ -285,58 +288,72 @@ class Win():
         if data_inicial_adm_str == data_final_adm_str:
             mesma_data = True
 
-        gerarRelatorioGP.gerarArquivo(Win.tela_menu_adm.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivo(Win.tela_menu_adm.label_6.text(),
         Win.tela_menu_adm.matricula_txt_2.text()[11:],
         str(data_inicial_unix_adm)[:-2],
         str(data_final_unix_adm)[:-2],
         mesma_data)
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+relatorio)
         return
     
     
     def gerarRelatorioDia():
-        gerarRelatorioGP.gerarArquivoDia(Win.tela_menu_adm.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivoDia(Win.tela_menu.label_6.text(),
         Win.tela_menu.matricula_txt_2.text()[11:])
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+str(relatorio))
         return
     
     def gerarRelatorioSemana():
-        gerarRelatorioGP.gerarArquivoSemana(Win.tela_menu_adm.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivoSemana(Win.tela_menu.label_6.text(),
         Win.tela_menu.matricula_txt_2.text()[11:])
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+relatorio)
         return
     
 
     def gerarRelatorioMes():
-        gerarRelatorioGP.gerarArquivoMes(Win.tela_menu_adm.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivoMes(Win.tela_menu.label_6.text(),
         Win.tela_menu.matricula_txt_2.text()[11:])
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+relatorio)
         return
     
     def gerarRelatorioDiaADM():
-        gerarRelatorioGP.gerarArquivoDia(Win.tela_menu_adm.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivoDia(Win.tela_menu_adm.label_6.text(),
         Win.tela_menu_adm.matricula_txt_2.text()[11:])
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+relatorio)
         return
     
     def gerarRelatorioSemanaADM():
-        gerarRelatorioGP.gerarArquivoSemana(Win.tela_menu_adm.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivoSemana(Win.tela_menu_adm.label_6.text(),
         Win.tela_menu_adm.matricula_txt_2.text()[11:])
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+relatorio)
         return
     
 
     def gerarRelatorioMesADM():
-        gerarRelatorioGP.gerarArquivoMes(Win.tela_menu_adm.username_txt_2.text()[6:],
+        relatorio = gerarRelatorioGP.gerarArquivoMes(Win.tela_menu_adm.label_6.text(),
         Win.tela_menu_adm.matricula_txt_2.text()[11:])
 
-        Win.messageBox("Relatório gerado com sucesso.")
+        if relatorio == 1:  Win.messageBox("Relatório gerado com sucesso.")
+        elif relatorio == 0:  return
+        else:   Win.messageBox("ERRO: "+relatorio)
         return
 
 
@@ -374,6 +391,7 @@ class Win():
                         Win.tela_menu_adm.lbl_email.setText(content_bd[4])
 
                         Win.tela_menu_adm.username_txt.setText("Nome: "+content_bd[0]+" "+content_bd[1])
+                        Win.tela_menu_adm.label_6.setText(content_bd[0]+" "+content_bd[1])
                         Win.tela_menu_adm.cargo_txt.setText("Cargo: "+content_bd[2])
                         Win.tela_menu_adm.matricula_txt.setText("Matrícula: "+content_bd[3])
 
@@ -392,6 +410,7 @@ class Win():
                         Win.tela_menu.lbl_email.setText(content_bd[4])
 
                         Win.tela_menu.username_txt.setText("Nome: "+content_bd[0]+" "+content_bd[1])
+                        Win.tela_menu.label_6.setText(content_bd[0]+" "+content_bd[1])
                         Win.tela_menu.cargo_txt.setText("Cargo: "+content_bd[2])
                         Win.tela_menu.matricula_txt.setText("Matrícula: "+content_bd[3])
 

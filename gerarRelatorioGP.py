@@ -4,6 +4,8 @@ from tkinter.filedialog import askdirectory
 def gerarArquivo(nome, matricula, data_inicial_unix, data_final_unix, mesma_data):
     path = askdirectory(title='Salvar como...') #Abre uma janela para a escolha do diretório
 
+    if not path:    return 0 #Retorna 0 se o usuário cancelar a ação
+
     conteudo = [
     "Nome do Funcionário: "+nome+"\n",
     "Matrícula: "+matricula+"\n",
@@ -17,15 +19,12 @@ def gerarArquivo(nome, matricula, data_inicial_unix, data_final_unix, mesma_data
     try:
         if mesma_data == True:
             cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data == '"+data_str+"' AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
-            print("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data == '"+data_str+"' AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
         else:
             cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data_unix BETWEEN "+data_inicial_unix+" AND "+data_final_unix+" AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
-            print("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data_unix BETWEEN "+data_inicial_unix+" AND "+data_final_unix+" AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
     except sqlite3.Error as erro:
-        print("Erro ao pesquisar os dados: "+str(erro))
+        return ("Erro ao pesquisar os dados: "+str(erro))
 
     pontos = cursor.fetchall()
-    print(pontos)
     banco.close()
 
     for x in range(0, len(pontos)):
@@ -38,12 +37,14 @@ def gerarArquivo(nome, matricula, data_inicial_unix, data_final_unix, mesma_data
         for line in conteudo:
             f.write(f'{line}\n')
     f.close()
-    return
+    return 1
 
 
 
 def gerarArquivoDia(nome, matricula):
     path = askdirectory(title='Salvar como...') #Abre uma janela para a escolha do diretório
+
+    if not path:    return 0 #Retorna 0 se o usuário cancelar a ação
 
     conteudo = [
     "Nome do Funcionário: "+nome+"\n",
@@ -57,7 +58,7 @@ def gerarArquivoDia(nome, matricula):
     try:
         cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data == '"+pega_horarioGP.curlDiaStr()+"' AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
     except sqlite3.Error as erro:
-        print("Erro ao pesquisar os dados: "+str(erro))
+        return ("Erro ao pesquisar os dados: "+str(erro))
 
     pontos = cursor.fetchall()
     banco.close()
@@ -72,12 +73,14 @@ def gerarArquivoDia(nome, matricula):
         for line in conteudo:
             f.write(f'{line}\n')
     f.close()
-    return
+    return 1
 
 
 
 def gerarArquivoSemana(nome, matricula):
     path = askdirectory(title='Salvar como...') #Abre uma janela para a escolha do diretório
+
+    if not path:    return 0 #Retorna 0 se o usuário cancelar a ação
 
     conteudo = [
     "Nome do Funcionário: "+nome+"\n",
@@ -96,7 +99,7 @@ def gerarArquivoSemana(nome, matricula):
         else:
             cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data_unix BETWEEN "+str(data_inicial_unix)+" AND "+str(data_final_unix)+" AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
     except sqlite3.Error as erro:
-        print("Erro ao pesquisar os dados: "+str(erro))
+        return ("Erro ao pesquisar os dados: "+str(erro))
 
     pontos = cursor.fetchall()
     banco.close()
@@ -111,11 +114,13 @@ def gerarArquivoSemana(nome, matricula):
         for line in conteudo:
             f.write(f'{line}\n')
     f.close()
-    return
+    return 1
 
 
 def gerarArquivoMes(nome, matricula):
     path = askdirectory(title='Salvar como...') #Abre uma janela para a escolha do diretório
+
+    if not path:    return 0 #Retorna 0 se o usuário cancelar a ação
 
     conteudo = [
     "Nome do Funcionário: "+nome+"\n",
@@ -128,7 +133,7 @@ def gerarArquivoMes(nome, matricula):
     try:
         cursor.execute("SELECT data,hora,entrada,justificativa FROM banco_pontoGP WHERE data LIKE '%-"+pega_horarioGP.curlMes()+"-2021' AND matricula = '"+matricula+"' ORDER BY data_unix ASC")
     except sqlite3.Error as erro:
-        print("Erro ao pesquisar os dados: "+str(erro))
+        return ("Erro ao pesquisar os dados: "+str(erro))
 
     pontos = cursor.fetchall()
     banco.close()
@@ -143,4 +148,4 @@ def gerarArquivoMes(nome, matricula):
         for line in conteudo:
             f.write(f'{line}\n')
     f.close()
-    return
+    return 1

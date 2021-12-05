@@ -223,7 +223,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Insira o código enviado par ao e-mail cadastrado.</string>
+             <string>Insira o código enviado para ao e-mail cadastrado.</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>

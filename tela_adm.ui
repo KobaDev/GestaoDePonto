@@ -160,7 +160,7 @@
                 <string notr="true">color: rgb(255, 255, 255);</string>
                </property>
                <property name="text">
-                <string>Seja Bem vindo!</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Seja Bem vindo(a),&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
