@@ -4,4 +4,4 @@ Esse projeto é direcionado à matéria de Interação Humano Computador na inst
 
 # GestaoDePonto (Clocking System)
 
-This project is directed towards Human-Computer Interacion subject in the Fatec São Paulo institution. It's a simple POC application written in Python, containing a clocking system, report generation and an administrative CRUD system. The programme depends on a connection with a proprietary server and API.
+This project is directed towards the Human-Computer Interacion subject in the Fatec São Paulo institution. It's a simple POC application written in Python, containing a clocking system, report generation and an administrative CRUD system. The programme depends on a connection with a proprietary server and API.
